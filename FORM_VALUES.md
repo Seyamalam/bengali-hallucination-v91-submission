@@ -6,11 +6,19 @@ Form: https://forms.gle/JBpfpK6w4419forQA
 
 ## Team
 
-- Team name: `Huntrix`
-- Registration code: `03-74970`
-- Team leader: `Touhidul Alam Seyam`
-- Participant email: enter it directly in the form; it is intentionally not
-  published in this repository.
+| Member | Role | Institution |
+|---|---|---|
+| Touhidul Alam Seyam | Team leader | BGC Trust University Bangladesh |
+| MD. Abtahee Kabir | Member | Chittagong University of Engineering & Technology |
+| Joyeta Barua Moni | Member | Chittagong University of Engineering & Technology |
+| Noore Tamanna Orny | Member | Chittagong University of Engineering & Technology |
+
+Team name: `Huntrix`
+
+Registration code: `03-74970`
+
+Enter each member's email, phone number, and student ID directly in the private
+organizer form. Those personal details are intentionally not published here.
 
 ## Private Leaderboard Rank
 

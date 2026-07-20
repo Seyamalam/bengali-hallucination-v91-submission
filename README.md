@@ -6,6 +6,18 @@ to the Bengali LLM Hallucination Detection Challenge.
 Start with [the submission link register](SUBMISSION_LINKS.md). To execute the
 notebook, follow the [Kaggle runbook](RUNBOOK.md).
 
+## Team
+
+| Member | Role | Affiliation |
+|---|---|---|
+| Touhidul Alam Seyam | Team leader | BGC Trust University Bangladesh |
+| MD. Abtahee Kabir | Member | Chittagong University of Engineering & Technology |
+| Joyeta Barua Moni | Member | Chittagong University of Engineering & Technology |
+| Noore Tamanna Orny | Member | Chittagong University of Engineering & Technology |
+
+Contact details and student IDs are kept out of the public repository. See
+[TEAM.md](TEAM.md).
+
 ## Frozen configuration
 
 | Field | Value |
@@ -54,6 +66,7 @@ to the scored v91 submission.
   artifact versions.
 - `RUNBOOK.md` — copy-and-run instructions and expected checks.
 - `FORM_VALUES.md` — the exact non-sensitive values for the organizer form.
+- `TEAM.md` — all four team members and their university affiliations.
 - `LICENSE` — MIT license for original Huntrix code only.
 
 No competition test data, generated predictions, private credentials, model
