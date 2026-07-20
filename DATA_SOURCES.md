@@ -4,7 +4,7 @@ Only `dataset samples.json`, `test set.csv`, and `sample submission.csv` were su
 
 | Source | Link | License / review status | Role |
 |---|---|---|---|
-| BenHalluEval | [GitHub](https://github.com/sakhadib/BenHalluEval) | Check repository files | Released-lineage and methodology audit |
+| BenHalluEval | [Paper](https://arxiv.org/abs/2605.31483) · [anonymous release](https://anonymous.4open.science/r/BanglaHalluEval-EB77) | No license declaration confirmed in the accessed release; redistribution status pending | Released-lineage and methodology audit |
 | IndicXNLI Bengali | [Hugging Face](https://huggingface.co/datasets/Divyanshu/indicxnli) | CC0 | Bengali NLI coverage |
 | Bengali Wikipedia dump | [Hugging Face](https://huggingface.co/datasets/rejauldu/bengali-wikipedia) | CC BY 3.0 | Document evidence and hard-pair construction |
 | Bengali Wikipedia | [bn.wikipedia.org](https://bn.wikipedia.org/) | CC BY-SA | Exact fact pages and multi-source consensus |

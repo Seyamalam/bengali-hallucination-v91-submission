@@ -1,0 +1,52 @@
+# Organizer Google Form values
+
+Use these exact frozen values.
+
+## Private Leaderboard Rank
+
+`1`
+
+Final private macro-F1: `0.982`.
+
+## Inference Notebook Link (Github Link)
+
+https://github.com/Seyamalam/bengali-hallucination-v91-submission/blob/ff9a63d42beabd30b678cb6c6f09ab0038ff1fca/inference.ipynb
+
+## Inference Notebook Link (Kaggle Link)
+
+https://www.kaggle.com/code/seyamalam/bengali-hallucination-v91-compliance-inference/versions/3
+
+## Runtime on the test set of 2500 rows (In Hours)
+
+`0.17`
+
+The final two measured 2,516-row runtimes were `527.0319s` and `440.8734s`.
+
+## GPU Used
+
+Select: **GPU T4*2**
+
+## Kaggle Link of the external dataset used as knowledge base
+
+https://www.kaggle.com/datasets/seyamalam/bengali-hallucination-phase2-runtime-v91
+
+## Uploaded the model checkpoint on
+
+Select: **Kaggle**
+
+Pinned public model checkpoint:
+
+https://www.kaggle.com/models/snowrab/qwen3-6-27b-q4-k-p/pyTorch/default/1
+
+## Additional public runtime dependency
+
+https://www.kaggle.com/datasets/seyamalam/bengali-hallucination-llama-cpp-cuda-b9637-public
+
+## Reproduction reference
+
+- Competition submission: `54836339`
+- Public macro-F1: `0.967`
+- Private macro-F1: `0.982`
+- Private leaderboard rank: `1`
+- Output SHA-256:
+  `0fec5d610f4e7b94ab6c46e2094d58e940b0f36781e9fa98d5466d2135474c28`

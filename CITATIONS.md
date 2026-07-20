@@ -10,7 +10,9 @@ Datathon, Kaggle, 2026.
 - Qwen Team. **Qwen3 model family and technical documentation.** The frozen
   inference asset is the public Kaggle model
   [`snowrab/qwen3-6-27b-q4-k-p/pyTorch/default/1`](https://www.kaggle.com/models/snowrab/qwen3-6-27b-q4-k-p/pyTorch/default/1),
-  licensed MIT by its Kaggle publisher.
+  whose Kaggle publisher labels the quantization MIT. The official
+  [`Qwen/Qwen3.6-27B-FP8`](https://huggingface.co/Qwen/Qwen3.6-27B-FP8)
+  base is Apache-2.0.
 - ggml-org. **llama.cpp.** Frozen release `b9637`, commit
   `aedb2a5e9ca3d4064148bbb919e0ddc0c1b70ab3`, MIT License.
   [Upstream repository](https://github.com/ggml-org/llama.cpp).

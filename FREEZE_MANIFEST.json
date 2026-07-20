@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
-  "frozen_at": "2026-07-20T18:54:48+06:00",
+  "frozen_at": "2026-07-20T20:09:52+06:00",
   "freeze_policy": "Do not update the notebook, runtime datasets, CUDA runtime, or model version after the organizer submission deadline.",
   "source_repository": {
     "visibility": "private",
-    "commit": "a7b222b"
+    "commit": "d1a64a673665169ce8613825731ab5a27046e58c"
   },
   "public_submission_repository": {
     "repository": "Seyamalam/bengali-hallucination-v91-submission",
@@ -15,8 +15,10 @@
     "url": "https://www.kaggle.com/code/seyamalam/bengali-hallucination-v91-compliance-inference",
     "validated_versions": [
       1,
-      2
+      2,
+      3
     ],
+    "submitted_version": 3,
     "hardware": "Tesla T4 x2",
     "internet_enabled": false,
     "notebook_sha256": "feb92671d131e27585d71eaca3f6f6c1d2fe0204e87167d59210a2a97a365bf1",
@@ -32,7 +34,8 @@
     "slug": "seyamalam/bengali-hallucination-phase2-runtime-v91",
     "url": "https://www.kaggle.com/datasets/seyamalam/bengali-hallucination-phase2-runtime-v91",
     "visibility": "public",
-    "content_manifest_sha256": "6a6734c43714eeadb880d388ee4f75ff496c4249c0e0d984fbaa9a41a634cf48",
+    "version": 4,
+    "content_manifest_sha256": "c666668a607cc37434ecf0b6e2009d1d48c481f44170cf0179fce1a85bdbfa9a",
     "contains_phase1_prediction_vector": false
   },
   "cuda_runtime_dataset": {
@@ -40,6 +43,7 @@
     "slug": "seyamalam/bengali-hallucination-llama-cpp-cuda-b9637-public",
     "url": "https://www.kaggle.com/datasets/seyamalam/bengali-hallucination-llama-cpp-cuda-b9637-public",
     "visibility": "public",
+    "version": 2,
     "llama_cpp_release": "b9637",
     "llama_cpp_commit": "aedb2a5e9ca3d4064148bbb919e0ddc0c1b70ab3",
     "binary_bytes": 97306416,
@@ -50,20 +54,20 @@
     "url": "https://www.kaggle.com/models/snowrab/qwen3-6-27b-q4-k-p/pyTorch/default/1",
     "version": 1,
     "visibility": "public",
-    "license": "MIT",
+    "license": "Official Qwen3.6 base: Apache-2.0; Kaggle quantization publisher label: MIT",
     "file": "Qwen3.6-27B-Q4_K_P.gguf"
   },
   "reported_execution": {
     "hardware": "Tesla T4 x2",
     "runtime_hours_for_form": 0.17,
     "run_seconds": [
-      593.430060329,
-      527.031869188
+      527.031869188,
+      440.8734130340001
     ],
     "phase1_rows": 2516,
     "same_mix_5000_row_projection_seconds": [
-      1179.3125205266297,
-      1047.3606303418123
+      1047.3606303418123,
+      876.1395330564391
     ],
     "within_nine_hour_limit": true
   },
