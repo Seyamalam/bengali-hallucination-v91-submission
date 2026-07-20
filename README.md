@@ -1,11 +1,5 @@
 # Huntrix · Public v91 Phase 2 inference
 
-This is the minimal public reproducibility package for Team Huntrix’s submission
-to the Bengali LLM Hallucination Detection Challenge.
-
-Start with [the submission link register](SUBMISSION_LINKS.md). To execute the
-notebook, follow the [Kaggle runbook](RUNBOOK.md).
-
 ## Team
 
 | Member | Role | Affiliation |
@@ -15,16 +9,14 @@ notebook, follow the [Kaggle runbook](RUNBOOK.md).
 | Joyeta Barua Moni | Member | Chittagong University of Engineering & Technology |
 | Noore Tamanna Orny | Member | Chittagong University of Engineering & Technology |
 
-Contact details and student IDs are kept out of the public repository. See
-[TEAM.md](TEAM.md).
-
 ## Frozen configuration
 
 | Field | Value |
 |---|---|
 | Kaggle notebook | [`seyamalam/bengali-hallucination-v91-compliance-inference`, version 3](https://www.kaggle.com/code/seyamalam/bengali-hallucination-v91-compliance-inference/versions/3) |
 | Hardware | **Tesla T4 ×2** |
-| Runtime reported in organizer form | **0.17 hours** |
+| Runtime reported in organizer form | **0.17 hours = 10 minutes 12 seconds = 612 seconds** |
+| Slowest measured full run | **9 minutes 53.43 seconds = 593.43 seconds for all 2,516 rows** |
 | Internet | Disabled |
 | Model | [`Qwen3.6-27B-Q4_K_P`, version 1](https://www.kaggle.com/models/snowrab/qwen3-6-27b-q4-k-p/pyTorch/default/1) |
 | Public knowledge/runtime dataset | [`bengali-hallucination-phase2-runtime-v91`, version 4](https://www.kaggle.com/datasets/seyamalam/bengali-hallucination-phase2-runtime-v91/versions/4) |
@@ -41,7 +33,8 @@ to the scored v91 submission.
 ## Scored reference
 
 - Kaggle competition submission: `54836339`
-- Public macro-F1: **0.967**
+- Public leaderboard: **rank #5, macro-F1 0.967**
+- Private leaderboard: **rank #1, macro-F1 0.982**
 - Phase 1 rows: `2,516`
 - Label counts: `{0: 1181, 1: 1335}`
 - Expected output SHA-256:
@@ -66,11 +59,7 @@ to the scored v91 submission.
   artifact versions.
 - `RUNBOOK.md` — copy-and-run instructions and expected checks.
 - `FORM_VALUES.md` — the exact non-sensitive values for the organizer form.
-- `TEAM.md` — all four team members and their university affiliations.
 - `LICENSE` — MIT license for original Huntrix code only.
-
-No competition test data, generated predictions, private credentials, model
-weights, or runtime corpora are stored in this GitHub repository.
 
 The scored router includes short, citation-backed factual answer records
 researched from public sources. We disclosed the construction to the
@@ -92,9 +81,3 @@ TEST_PATH = Path(
 No notebook variable needs to be edited for the held-out set. The notebook
 infers `N` from that file, preserves its IDs in order, and writes exactly
 `id,label`.
-
-## Integrity
-
-Do not update the notebook, model version, runtime datasets, or CUDA runtime
-after the submission deadline. Verify all pinned hashes against
-`FREEZE_MANIFEST.json`.
