@@ -11,7 +11,7 @@ This page is the authoritative link register for the Huntrix v91 package.
 | Competition data | [Kaggle data](https://www.kaggle.com/competitions/bengali-hallucination/data) |
 | Competition rules | [Kaggle rules](https://www.kaggle.com/competitions/bengali-hallucination/rules) |
 | Public submission repository | [Seyamalam/bengali-hallucination-v91-submission](https://github.com/Seyamalam/bengali-hallucination-v91-submission) |
-| Immutable documentation snapshot | [commit `0139500`](https://github.com/Seyamalam/bengali-hallucination-v91-submission/tree/0139500a22b43f61f3287a4bdca9c25558458698) |
+| Immutable documentation snapshot | [commit `b94111b`](https://github.com/Seyamalam/bengali-hallucination-v91-submission/tree/b94111b9128560aa779d55792c7927bce79eda38) |
 
 ## Frozen inference artifacts
 
