@@ -10,7 +10,7 @@ Final private macro-F1: `0.982`.
 
 ## Inference Notebook Link (Github Link)
 
-https://github.com/Seyamalam/bengali-hallucination-v91-submission/blob/ff9a63d42beabd30b678cb6c6f09ab0038ff1fca/inference.ipynb
+https://github.com/Seyamalam/bengali-hallucination-v91-submission/blob/26fefdbbd054d0069914bf66dcb79aa59d64fbc0/inference.ipynb
 
 ## Inference Notebook Link (Kaggle Link)
 
