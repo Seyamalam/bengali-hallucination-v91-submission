@@ -3,6 +3,9 @@
 This is the minimal public reproducibility package for Team Huntrix’s submission
 to the Bengali LLM Hallucination Detection Challenge.
 
+Start with [the submission link register](SUBMISSION_LINKS.md). To execute the
+notebook, follow the [Kaggle runbook](RUNBOOK.md).
+
 ## Frozen configuration
 
 | Field | Value |
@@ -12,8 +15,8 @@ to the Bengali LLM Hallucination Detection Challenge.
 | Runtime reported in organizer form | **0.17 hours** |
 | Internet | Disabled |
 | Model | [`Qwen3.6-27B-Q4_K_P`, version 1](https://www.kaggle.com/models/snowrab/qwen3-6-27b-q4-k-p/pyTorch/default/1) |
-| Public knowledge/runtime dataset | [`bengali-hallucination-phase2-runtime-v91`](https://www.kaggle.com/datasets/seyamalam/bengali-hallucination-phase2-runtime-v91) |
-| Public CUDA runtime | [`llama.cpp CUDA b9637`](https://www.kaggle.com/datasets/seyamalam/bengali-hallucination-llama-cpp-cuda-b9637-public) |
+| Public knowledge/runtime dataset | [`bengali-hallucination-phase2-runtime-v91`, version 4](https://www.kaggle.com/datasets/seyamalam/bengali-hallucination-phase2-runtime-v91/versions/4) |
+| Public CUDA runtime | [`llama.cpp CUDA b9637`, version 2](https://www.kaggle.com/datasets/seyamalam/bengali-hallucination-llama-cpp-cuda-b9637-public/versions/2) |
 | Competition input | `/kaggle/input/competitions/bengali-hallucination/test set.csv` |
 
 The notebook is offline and produces `submission.csv` directly from the raw
@@ -42,19 +45,26 @@ to the scored v91 submission.
   status.
 - `THIRD_PARTY_NOTICES.md` — upstream licenses, attribution, and unresolved
   redistribution status.
-- `METHODOLOGY_DISCLOSURE.md` — rule audit and the public-source verification
-  question sent to the organizers.
+- `METHODOLOGY_DISCLOSURE.md` — rule audit, public-source verification method,
+  and organizer clarification.
 - `Huntrix_Technical_Report.pdf` — four-page technical methodology report.
+- `report/Huntrix_Technical_Report.tex` — IEEE-style LaTeX source with native
+  TikZ and PGFPlots figures.
+- `SUBMISSION_LINKS.md` — organizer form, competition pages, and exact public
+  artifact versions.
+- `RUNBOOK.md` — copy-and-run instructions and expected checks.
+- `FORM_VALUES.md` — the exact non-sensitive values for the organizer form.
 - `LICENSE` — MIT license for original Huntrix code only.
 
 No competition test data, generated predictions, private credentials, model
 weights, or runtime corpora are stored in this GitHub repository.
 
 The scored router includes short, citation-backed factual answer records
-researched from public sources. Because Kaggle Foundational Rule 4(b) can be
-read to restrict human prediction of test records, this exact method has been
-disclosed to the organizers for clarification. No hidden label was available
-or used; the question remains pending and is documented rather than concealed.
+researched from public sources. We disclosed the construction to the
+organizers. They replied that a solution without manually labeled rows, API
+calls, or other rulebook violations would not be disqualified. No hidden label
+was available or used, and the notebook computes every output from raw rows and
+pinned evidence.
 
 ## Phase 2 replacement
 

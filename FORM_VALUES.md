@@ -2,6 +2,16 @@
 
 Use these exact frozen values.
 
+Form: https://forms.gle/JBpfpK6w4419forQA
+
+## Team
+
+- Team name: `Huntrix`
+- Registration code: `03-74970`
+- Team leader: `Touhidul Alam Seyam`
+- Participant email: enter it directly in the form; it is intentionally not
+  published in this repository.
+
 ## Private Leaderboard Rank
 
 `1`
@@ -28,7 +38,7 @@ Select: **GPU T4*2**
 
 ## Kaggle Link of the external dataset used as knowledge base
 
-https://www.kaggle.com/datasets/seyamalam/bengali-hallucination-phase2-runtime-v91
+https://www.kaggle.com/datasets/seyamalam/bengali-hallucination-phase2-runtime-v91/versions/4
 
 ## Uploaded the model checkpoint on
 
@@ -40,7 +50,16 @@ https://www.kaggle.com/models/snowrab/qwen3-6-27b-q4-k-p/pyTorch/default/1
 
 ## Additional public runtime dependency
 
-https://www.kaggle.com/datasets/seyamalam/bengali-hallucination-llama-cpp-cuda-b9637-public
+https://www.kaggle.com/datasets/seyamalam/bengali-hallucination-llama-cpp-cuda-b9637-public/versions/2
+
+## Competition links
+
+- Overview:
+  https://www.kaggle.com/competitions/bengali-hallucination/overview
+- Data:
+  https://www.kaggle.com/competitions/bengali-hallucination/data
+- Rules:
+  https://www.kaggle.com/competitions/bengali-hallucination/rules
 
 ## Reproduction reference
 

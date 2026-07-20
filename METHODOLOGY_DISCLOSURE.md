@@ -20,7 +20,7 @@ Audit date: 2026-07-20, before the Phase 2 package deadline.
   discovery, or held-out Phase 2 access.
 - Public notebook, runtime, CUDA binary, model, and immutable GitHub package.
 
-## Disclosed interpretation question
+## Organizer clarification
 
 Kaggle's Foundational Rule 4(b) prohibits incorporating hand labeling or human
 prediction of test records. The competition-specific rules also allow public
@@ -35,10 +35,14 @@ unlabeled prompts against public sources:
 - removing the manually researched files changes 42 router labels before the
   selective judge and increases uncertainty from 158 to 251 rows.
 
-No hidden test labels were available or used. The team has asked the organizers
-in writing whether this public-source verification counts as prohibited human
-prediction. The issue remains pending and is not concealed in the report or
-submission package.
+No hidden test labels were available or used. The team disclosed the exact
+prompt/source matching and public-source verification process to the
+organizers. They replied that Kaggle foundational rules were not imposed by the
+organizers and that a solution without manually labeled rows, API calls, or
+other rulebook violations would not be disqualified.
+
+The notebook still assigns every label through the frozen router and judge. It
+does not contain a hand-written label vector or a Phase 1 dataset switch.
 
 ## Third-party licensing review
 
