@@ -141,27 +141,56 @@ For grounded rows, response claims are checked against the supplied passage. Exa
 
 \subsection{Evidence Admission and Conflict Resolution}
 
-Table~\ref{tab:evidence} summarizes the admission policy. Idiom records distinguish figurative meaning from literal gloss, a known weakness in Bengali LLMs \citep{idiom}. Legal records require the named act and section. A free-form fact requires two independent public sources and a typed relation. These guards were added after broad retrieval repeatedly found relevant passages that answered a neighboring question.
+Figure~\ref{fig:verification} formalizes the two main deterministic decisions. Idiom records distinguish figurative meaning from literal gloss, a known weakness in Bengali LLMs \citep{idiom}. Legal records require the named act and section. A free-form fact requires two independent public sources and a typed relation. These guards were added after broad retrieval repeatedly found relevant passages that answered a neighboring question.
 
-\begin{table}[t]
-\caption{Evidence admission policy.}
-\label{tab:evidence}
+\begin{figure}[t]
 \centering
-\small
-\begin{tabularx}{\columnwidth}{@{}p{0.29\columnwidth}X@{}}
-\toprule
-Evidence family & Requirement for emitting a label \\
-\midrule
-Exact lineage & Prompt, response, and applicable context agree \\
-Answer banks & Relation match and reliability-weighted consensus \\
-Structured rule & Parsed values, entity, and predicate align \\
-Context evidence & Same clause and prompt anchors; no contradiction \\
-Idiom or law & Exact headword/section and requested sense/provision \\
-Free-form fact & Typed relation and two independent sources \\
-Fuzzy retrieval & Candidate generation only \\
-\bottomrule
-\end{tabularx}
-\end{table}
+\resizebox{\columnwidth}{!}{%
+\begin{tikzpicture}[
+  every node/.style={font=\scriptsize},
+  box/.style={draw=huntrixblue, rounded corners=1.5pt, fill=huntrixgray,
+              minimum height=6.8mm, align=center, text width=17mm},
+  gate/.style={draw=huntrixteal, rounded corners=1.5pt, fill=huntrixteal!9,
+               minimum height=6.8mm, align=center, text width=15mm},
+  outcome/.style={draw=huntrixgold!85!black, rounded corners=1.5pt,
+                  fill=huntrixgold!12, minimum height=6.8mm,
+                  align=center, text width=17mm},
+  arrow/.style={-{Latex[length=1.6mm]}, thick, draw=black!62}
+]
+\node[font=\small\bfseries, anchor=west] at (0,1.05) {(a) Claim-level context verification};
+\node[box] (clauses) at (0.9,0) {context\\clauses};
+\node[box] (claims) at (3.1,0) {atomic response\\claims $c_i$};
+\node[box] (anchors) at (5.3,0) {entity, number,\\negation, relation};
+\node[box] (align) at (7.5,0) {best applicable\\clause};
+\node[outcome] (state) at (9.7,0) {$s_i\in\{S,C,U\}$};
+\draw[arrow] (clauses) -- (claims);
+\draw[arrow] (claims) -- (anchors);
+\draw[arrow] (anchors) -- (align);
+\draw[arrow] (align) -- (state);
+\node[anchor=west, text width=104mm, align=center] at (0,-0.92)
+  {$\exists i:s_i=C\Rightarrow\labelzero$ \quad
+   $\forall i:s_i=S$ and no extra claim $\Rightarrow\labelone$ \quad
+   otherwise $\Rightarrow\bot$};
+
+\node[font=\small\bfseries, anchor=west] at (0,-2.0) {(b) Typed evidence admission};
+\node[box] (record) at (0.9,-3.05) {candidate record\\+ provenance};
+\node[gate] (entity) at (3.0,-3.05) {entity\\matches};
+\node[gate] (predicate) at (5.0,-3.05) {predicate\\matches};
+\node[gate] (value) at (7.0,-3.05) {value\\equivalent};
+\node[gate] (conflict) at (9.0,-3.05) {no equal-trust\\conflict};
+\node[outcome] (emit) at (11.15,-3.05) {label +\\decision trace};
+\draw[arrow] (record) -- (entity);
+\draw[arrow] (entity) -- (predicate);
+\draw[arrow] (predicate) -- (value);
+\draw[arrow] (value) -- (conflict);
+\draw[arrow] (conflict) -- (emit);
+\node[anchor=west, text width=104mm, align=center, text=huntrixred] at (0,-3.96)
+  {failure at any gate $\Rightarrow\bot$; fuzzy retrieval proposes candidates but never emits a label};
+\end{tikzpicture}%
+}
+\caption{Deterministic decision diagrams. (a) Context claims are aligned to an anchored clause and aggregated from supported ($S$), contradicted ($C$), or unknown ($U$) states. (b) External evidence must pass entity, predicate, value, and conflict gates; any failure produces abstention ($\bot$).}
+\label{fig:verification}
+\end{figure}
 
 Every proposal records source family, relation, and confidence. Intrinsic context contradiction has highest priority. Exact authoritative lineage follows, then relation-aligned parsing and consensus evidence. If sources describe different relations, neither decides the row. If they claim the same relation but disagree, the system requires a stronger exact source or abstains. We accepted a larger judge queue when that was safer than allowing weak retrieval to override a trusted decision.
 

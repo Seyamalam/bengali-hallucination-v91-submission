@@ -66,7 +66,7 @@ Coverage alone would have been dangerous, so we imposed an evidence order. A con
 **Presenter:** MD. Abtahee Kabir
 **Target:** 65 seconds
 
-For context rows, raw similarity was not the decision variable. We split the context into clauses and the response into atomic factual claims. Alignment used anchors such as named entities, numbers, negation, and the requested relation. Each claim then received one of three states: supported, contradicted, or unknown. A single contradiction was enough for label zero. Label one required support for every factual claim and no unsupported addition. Anything between those cases produced abstention and moved to the judge. This claim-level rule matters when most of a response copies the context but changes one year, person, quantity, or polarity.
+This is the expanded view of Figure 2a in the report. For context rows, raw similarity was not the decision variable. We split the context into clauses and the response into atomic factual claims. Alignment used anchors such as named entities, numbers, negation, and the requested relation. Each claim then received one of three states: supported, contradicted, or unknown. A single contradiction was enough for label zero. Label one required support for every factual claim and no unsupported addition. Anything between those cases produced abstention and moved to the judge. This claim-level rule matters when most of a response copies the context but changes one year, person, quantity, or polarity.
 
 ## Slide 8: Qwen judged 158 rows, not the whole test set
 
@@ -82,7 +82,7 @@ The fallback used Qwen3.6 27B in a 16.332 GiB quantized checkpoint. Context rows
 **Presenter:** Joyeta Barua Moni
 **Target:** 65 seconds
 
-Every deterministic fact was stored as a typed evidence record. The record carried a source identifier, source family, normalized entity, predicate, value, and provenance. At prediction time, four gates had to pass. The entity had to match. The requested predicate had to match, not merely appear near the same topic. The value needed exact or task-specific equivalence. Finally, no source of equal trust could contradict it. The resulting trace recorded the route, source, predicate, and verdict. If any gate failed, the verdict was null and the row moved forward. This trace made error analysis possible without storing a manual label vector for the test set.
+This is the expanded view of Figure 2b in the report. Every deterministic fact was stored as a typed evidence record. The record carried a source identifier, source family, normalized entity, predicate, value, and provenance. At prediction time, four gates had to pass. The entity had to match. The requested predicate had to match, not merely appear near the same topic. The value needed exact or task-specific equivalence. Finally, no source of equal trust could contradict it. The resulting trace recorded the route, source, predicate, and verdict. If any gate failed, the verdict was null and the row moved forward. This trace made error analysis possible without storing a manual label vector for the test set.
 
 ## Slide 10: Score progression tracked changes in method
 
@@ -114,7 +114,7 @@ A score alone could not tell us whether a change was safe, so we used four gates
 
 The organizer-run Phase 2 notebook processed exactly 5,000 rows on two Tesla T4 GPUs. The router finished in 73.18 seconds but resolved only 207 rows, or 4.14 percent. The remaining 4,793 rows went to Qwen. The model was ready 171.25 seconds after the notebook started, and the judge stage took 13,747.50 seconds. End-to-end runtime was 13,921.91 seconds, which is 3 hours, 52 minutes, and 1.91 seconds. The output validation cell completed successfully with 5,000 ordered IDs and binary labels. This used 42.97 percent of the nine-hour budget. It is measured runtime evidence, not a Phase 2 accuracy score.
 
-## Slide 14: Phase 2 coverage fell from 93.72% to 4.14%
+## Slide 14: Phase 2 source shift collapsed deterministic coverage
 
 **Presenter:** Noore Tamanna Orny
 **Target:** 60 seconds
