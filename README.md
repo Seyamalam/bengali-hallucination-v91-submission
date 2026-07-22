@@ -57,8 +57,9 @@ to the scored v91 submission.
 - `report/Huntrix_Technical_Report.tex` — ACL-style LaTeX source with native
   TikZ and PGFPlots figures; the pinned official style and bibliography files
   are included beside it.
-- `presentation/Huntrix_Final_Presentation.pptx` — light-themed 12-slide final
-  deck with speaker notes for all four presenters.
+- `presentation/Huntrix_Final_Presentation.pptx` — light-themed 15-slide
+  scientific deck with detailed methodology diagrams and speaker notes for all
+  four presenters.
 - `presentation/Huntrix_Final_Presentation.pdf` — review copy of the final
   presentation.
 - `presentation/HUNTRIX_PRESENTATION_SCRIPT.md` — timed rehearsal script,

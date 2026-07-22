@@ -1,7 +1,7 @@
 # Team Huntrix Final Presentation Script
 
-**Talk length:** approximately 9 to 10 minutes  
-**Format:** 12 slides, four presenters  
+**Talk length:** approximately 14 minutes
+**Format:** 15 slides, four presenters
 **Deck:** `Huntrix_Final_Presentation.pptx`
 
 The paper follows the ACL/EMNLP author-year citation convention. The presentation uses short numbered source markers so citations remain readable on screen; the full source map is at the end of this script.
@@ -10,99 +10,120 @@ The paper follows the ACL/EMNLP author-year citation convention. The presentatio
 
 | Presenter | Slides | Approximate time |
 |---|---:|---:|
-| Touhidul Alam Seyam | 1-3 | 2 min 35 sec |
-| MD. Abtahee Kabir | 4-6 | 2 min 50 sec |
-| Joyeta Barua Moni | 7-9 | 2 min 50 sec |
-| Noore Tamanna Orny | 10-12 | 2 min 40 sec |
+| Touhidul Alam Seyam | 1-4 | 3 min 35 sec |
+| MD. Abtahee Kabir | 5-8 | 3 min 50 sec |
+| Joyeta Barua Moni | 9-12 | 3 min 55 sec |
+| Noore Tamanna Orny | 13-15 | 2 min 40 sec |
 
-The individual slide targets add up to 10 minutes and 5 seconds. In rehearsal, aim for 9 minutes and 30 seconds to leave room for a brief pause during handoffs.
+The individual slide targets add up to 14 minutes. In rehearsal, aim for 13 minutes and 30 seconds to leave room for brief pauses during handoffs.
 
 ## Slide 1: Private rank 1 came from changing the decision path
 
-**Presenter:** Touhidul Alam Seyam  
+**Presenter:** Touhidul Alam Seyam
 **Target:** 45 seconds
 
 Good morning. We are Team Huntrix. Our final Phase 1 system scored 0.982 on the private leaderboard and finished first. The public score was 0.967. The main reason was not a larger model or a large fine-tune. We changed which method was allowed to answer each kind of question. Exact cases went through deterministic evidence. Only the uncertain remainder went to the language model. This talk explains that decision, what failed before it, and how we packaged the result for Phase 2.
 
 ## Slide 2: One binary label hid many different reasoning tasks
 
-**Presenter:** Touhidul Alam Seyam  
+**Presenter:** Touhidul Alam Seyam
 **Target:** 50 seconds
 
 The label looked simple: zero for hallucinated and one for faithful. The rows were not simple. Some asked whether a response followed a supplied passage. Others needed arithmetic, option parsing, Bengali morphology, idiom meaning, legal sections, or a historical fact. One generic judge prompt had to switch between all of these without being told which evidence standard to use. It gave us a useful baseline, but it also created a ceiling. A response could sound reasonable while answering the wrong relation. That pushed us toward task routing.
 
 ## Slide 3: The breakthrough was a selective cascade
 
-**Presenter:** Touhidul Alam Seyam  
-**Target:** 60 seconds
+**Presenter:** Touhidul Alam Seyam
+**Target:** 55 seconds
 
-Our fix was a selective cascade. We normalize the row, identify its task family, and try only the rules that belong to that family. Exact lineage can decide an exact source match. Structured solvers can decide a parsed number or option. Context checks can decide a contradiction inside the supplied passage. Typed evidence can decide an idiom or legal relation. Each stage can also return nothing. That matters. If the source is only similar, or the relation is unclear, we do not force a label. The row reaches the judge.
+Our fix was a selective cascade. We normalize the row, identify its task family, and try only the rules that belong to that family. Exact lineage can decide an exact source match. Structured solvers can decide a parsed number or option. Context checks can decide a contradiction inside the supplied passage. Typed evidence can decide an idiom or legal relation. Each stage can also return nothing. If the source is only similar, or the relation is unclear, we do not force a label. The row reaches the judge. The next slide opens this router and shows the actual branch conditions.
 
-**Handoff:** Abtahee will show how much work that router removed and how we controlled the remaining evidence.
+## Slide 4: The router selected an evidence policy before predicting
 
-## Slide 4: Deterministic routing handled 93.7% of Phase 1
+**Presenter:** Touhidul Alam Seyam
+**Target:** 65 seconds
 
-**Presenter:** MD. Abtahee Kabir  
+This is the router in operational form. After normalization, the first question is whether the row contains an answer-bearing context. If it does, the context verifier compares atomic claims. Without context, the router checks for a structured task such as a number, range, option, or morphology problem. The next branch asks whether an exact source lineage exists. Even then, typed evidence must match the entity, predicate, and value. A conflict between sources of equal trust forces abstention. Every branch has the same contract: return zero, one, or null. Null is not an error. It sends the row forward. Only the final unresolved tail reaches the LLM judge.
+
+**Handoff:** Abtahee will quantify that split and then open the two main verification paths.
+
+## Slide 5: Deterministic routing handled 93.7% of Phase 1
+
+**Presenter:** MD. Abtahee Kabir
 **Target:** 50 seconds
 
 The final router resolved 2,358 of the 2,516 Phase 1 rows before LLM inference. That is 93.72 percent. The judge saw 158 unique rows, or 6.28 percent. Earlier in development the uncertain queue was 620, so the deterministic layers removed almost three quarters of the expensive tail. This did more than save time. It also reduced the number of rows exposed to prompt variation. One detail: 158 is a row count. Some no-context rows received two or three views, so the number of model requests was higher than 158.
 
-## Slide 5: Evidence could decide only when the relation matched
+## Slide 6: Evidence could decide only when the relation matched
 
-**Presenter:** MD. Abtahee Kabir  
+**Presenter:** MD. Abtahee Kabir
 **Target:** 60 seconds
 
 Coverage alone would have been dangerous, so we imposed an evidence order. A contradiction inside the supplied context came first. Exact source lineage followed. Structured solvers needed the value, entity, and requested predicate to agree. Idiom, legal, and public fact records were typed by relation. A year near the right entity was not enough if the prompt asked about a different event. Fuzzy retrieval had the weakest role. It could surface a candidate, but it could not decide against stronger evidence. If two equally trusted sources disagreed, the router abstained. That policy sometimes increased the judge queue, but it prevented confident relation swaps.
 
-## Slide 6: Qwen judged 158 rows, not the whole test set
+## Slide 7: Context rows were reduced to claim-level entailment tests
 
-**Presenter:** MD. Abtahee Kabir  
-**Target:** 60 seconds
+**Presenter:** MD. Abtahee Kabir
+**Target:** 65 seconds
+
+For context rows, raw similarity was not the decision variable. We split the context into clauses and the response into atomic factual claims. Alignment used anchors such as named entities, numbers, negation, and the requested relation. Each claim then received one of three states: supported, contradicted, or unknown. A single contradiction was enough for label zero. Label one required support for every factual claim and no unsupported addition. Anything between those cases produced abstention and moved to the judge. This claim-level rule matters when most of a response copies the context but changes one year, person, quantity, or polarity.
+
+## Slide 8: Qwen judged 158 rows, not the whole test set
+
+**Presenter:** MD. Abtahee Kabir
+**Target:** 55 seconds
 
 The fallback used Qwen3.6 27B in a 16.332 GiB quantized checkpoint. Context rows received one entailment view. No-context rows received up to three short views: a factual check, strict exam grading, and a check that was deliberately cautious about faithful labels. A no-context response needed unanimous positive votes to receive label one. The first zero ended evaluation early. We disabled thinking and constrained generation to one binary token. Row order, prompt order, seeds, and batch boundaries were fixed. That made the judge fast enough to be a tail component rather than the whole system.
 
-**Handoff:** Joyeta will show how this architecture changed the score and what we learned from the failed experiments.
+**Handoff:** Joyeta will show how accepted evidence was traced, then connect that design to the experiments and final result.
 
-## Slide 7: Routing produced the largest score jump
+## Slide 9: A source record was accepted only after four fields aligned
 
-**Presenter:** Joyeta Barua Moni  
+**Presenter:** Joyeta Barua Moni
+**Target:** 65 seconds
+
+Every deterministic fact was stored as a typed evidence record. The record carried a source identifier, source family, normalized entity, predicate, value, and provenance. At prediction time, four gates had to pass. The entity had to match. The requested predicate had to match, not merely appear near the same topic. The value needed exact or task-specific equivalence. Finally, no source of equal trust could contradict it. The resulting trace recorded the route, source, predicate, and verdict. If any gate failed, the verdict was null and the row moved forward. This trace made error analysis possible without storing a manual label vector for the test set.
+
+## Slide 10: Routing produced the largest score jump
+
+**Presenter:** Joyeta Barua Moni
 **Target:** 55 seconds
 
 This score history changed how we thought about the problem. The early character and embedding baseline scored 0.657. Gemma reached 0.742, and a Qwen judge reached 0.797. The largest single jump came at v6, when source and structured routing raised the score to 0.903. After that, progress was smaller and more forensic. We tightened provenance, repaired relation checks, and added legal and idiom evidence. v85 reached 0.966. v87 is the small dip on the right. We reverted it. v91 finished at 0.967 publicly.
 
-## Slide 8: Several reasonable ideas made the score worse
+## Slide 11: Several reasonable ideas made the score worse
 
-**Presenter:** Joyeta Barua Moni  
+**Presenter:** Joyeta Barua Moni
 **Target:** 60 seconds
 
 Some of the most useful experiments were failures. Prompt voting looked decent on the released set and scored only 0.783 publicly. The compact TF-IDF verifier improved out of fold but struggled with cultural facts that had no context. Raw QA retrieval often found a passage about the right entity but the wrong relation. v87 was the clearest warning. We changed two labels using facts that looked plausible, and the public score fell from 0.966 to 0.965. We reverted those edits. From that point, a source was not enough. Every accepted record also needed the exact predicate the question asked for.
 
-## Slide 9: The final result held across local, public, and private views
+## Slide 12: The final result held across local, public, and private views
 
-**Presenter:** Joyeta Barua Moni  
+**Presenter:** Joyeta Barua Moni
 **Target:** 55 seconds
 
 We kept the evaluation views separate. On the 299 released labels, the full cascade reached 0.9933 macro F1. The deterministic subset covered 225 of those rows without an error. The public leaderboard score was 0.967 at rank five. The final private score was 0.982 at rank one. That private result tells us the conservative policy generalized better than the public slice suggested. It does not tell us that every individual v91 rule will survive Phase 2. The source mix is broader, so we treat the private score as evidence, not a guarantee.
 
 **Handoff:** Orny will cover reproducibility, runtime, and the Phase 2 plan.
 
-## Slide 10: Three full runs reproduced the same CSV under 10 minutes
+## Slide 13: Three full runs reproduced the same CSV under 10 minutes
 
-**Presenter:** Noore Tamanna Orny  
+**Presenter:** Noore Tamanna Orny
 **Target:** 55 seconds
 
 We ran the frozen notebook three times on Kaggle with two T4 GPUs. The complete 2,516-row runs took 440.87, 527.03, and 593.43 seconds. All three produced the same CSV bytes and the same SHA-256 hash as the scored submission. We reported 0.17 hours, or 612 seconds, as a conservative form value. A 5,000-row same-mix test took 14.60 minutes. We also estimated the pessimistic case where every row needs all three judge views. That stays around 5.2 to 5.5 hours, below the nine-hour limit.
 
-## Slide 11: Phase 2 widens the source mix, so abstention matters more
+## Slide 14: Phase 2 widens the source mix, so abstention matters more
 
-**Presenter:** Noore Tamanna Orny  
+**Presenter:** Noore Tamanna Orny
 **Target:** 60 seconds
 
 Phase 2 changes the source distribution. The organizer listed Common Crawl, recent newspapers, Wikipedia, Banglapedia, government service pages, Bangladesh law, NCTB textbooks, and literature. Exact Phase 1 lineage will naturally cover less. The router handles this by failing closed. It first tries context clauses, structured solvers, and exact entity-relation checks. If those checks fail, the row skips lineage and reaches the same fixed judge. Lower deterministic coverage will increase runtime, but it should not make approximate retrieval more powerful. Our all-uncertain timing gives us room for that shift. Accuracy is still the open question, which is why abstention remains important.
 
-## Slide 12: Be exact when possible. Abstain when necessary.
+## Slide 15: Be exact when possible. Abstain when necessary.
 
-**Presenter:** Noore Tamanna Orny  
+**Presenter:** Noore Tamanna Orny
 **Target:** 45 seconds
 
 We will close with three lessons. First, this benchmark is a mixture of tasks, and those tasks need different evidence standards. Second, a related passage is not enough. The entity and the requested relation must match. Third, selective judging made the system faster and steadier because the LLM handled only the unresolved tail. That combination produced a private score of 0.982, reproduced the scored CSV offline, and stayed within the Phase 2 runtime limit. We are ready for your questions.
@@ -142,4 +163,3 @@ The public leaderboard evaluated only part of the test set. The private score ca
 5. Qwen3.6-27B model card: <https://huggingface.co/Qwen/Qwen3.6-27B-FP8>
 6. llama.cpp: <https://github.com/ggml-org/llama.cpp>
 7. Team Huntrix experiment log, frozen manifest, deterministic trace, Kaggle runtime records, and final leaderboard records in this repository.
-
