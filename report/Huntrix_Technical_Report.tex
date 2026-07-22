@@ -57,7 +57,7 @@ A Deterministic Selective Cascade}
 \maketitle
 
 \begin{abstract}
-We present a selective cascade for Bengali hallucination detection. Source-lineage checks, task-specific solvers, context grounding, and relation-typed evidence act first; a quantized open-weight model judges only abstentions. The system reached public macro-F1 0.967 and private macro-F1 0.982, ranking first in Phase 1. On 299 released labels it reaches 0.9933 macro-F1, with 225 deterministic rows classified without error. Three T4$\times$2 runs reproduced the scored 2,516-row output in 440.87--593.43 seconds. In the organizer-executed 5,000-row Phase 2 run, 4,793 rows reached the judge and inference took 3~hours 52~minutes, using 42.97\% of the nine-hour budget \citep{phase2run}. Strict evidence admission and explicit abstention preserved runtime compliance under substantial source shift.
+We study selective inference for Bengali hallucination detection. Task-specific solvers, context grounding, and relation-typed evidence act first; a quantized open-weight model judges abstentions. Phase 1 public and private macro-F1 were 0.967 and 0.982. On 299 released labels, macro-F1 is 0.9933, with 225 deterministic rows classified without error. Three T4$\times$2 runs reproduced the scored 2,516-row output. In the organizer-executed 5,000-row Phase 2 run, 4,793 rows reached the judge and inference took 3~hours 52~minutes \citep{phase2run}. The results expose the trade-off between strict evidence admission, abstention, and runtime under source shift.
 \end{abstract}
 
 \section{Introduction}
@@ -211,13 +211,13 @@ coordinates {(0,0.657) (1,0.742) (2,0.797) (3,0.903) (4,0.934)
 coordinates {(Early,620) (v37,312) (v85,193) (v91,158)};
 \end{axis}
 \end{tikzpicture}
-\caption{Left: public leaderboard progression. Right: deterministic routing reduced the Phase 1 judge queue by 74.5\%. The largest accuracy gain followed the move from uniform judging to source and task routing.}
+\caption{Left: public evaluation across selected versions. Right: the Phase 1 judge queue as routing rules matured. v6 marks the pivot from uniform judging to source- and task-conditioned decisions; v87 records a regression that was reverted.}
 \label{fig:progress}
 \end{figure*}
 
 \subsection{Iteration and Error Analysis}
 
-Figure~\ref{fig:progress} and Table~\ref{tab:versions} summarize the experiment path. Character and embedding models established a 0.657 baseline. Gemma 12B QAT and the Qwen judge improved factual reasoning but remained prompt-sensitive. v6 introduced source and structured routing and jumped to 0.903. Later gains came from lineage audits, stricter provenance, legal evidence, and relation guards rather than a larger model.
+Figure~\ref{fig:progress} and Table~\ref{tab:versions} summarize the experiment path. Character and embedding models established a 0.657 baseline; Gemma and Qwen improved factual reasoning but remained prompt-sensitive. v6 shifted the hypothesis from model selection to decision routing. v37 tightened provenance, v87 exposed weakly typed facts and was reverted, and v91 added relation guards. The curve records pivots and reversions, not monotonic progress.
 
 \begin{table}[t]
 \caption{Representative scored iterations.}
@@ -242,13 +242,13 @@ v91 & \textbf{0.967} & typed idiom and relation guards \\
 \end{tabularx}
 \end{table}
 
-Several plausible approaches failed. A prompt-vote ensemble reached 0.8512 locally but only 0.783 publicly, exposing prompt overfitting. A TF-IDF verifier improved from 0.7879 to 0.8261 out of fold, yet remained weak on no-context cultural facts. Raw external-QA retrieval often found adjacent passages with the wrong relation or authority. A global substring rule confused instructional grammar context with evidence. Finally, v87 made two externally plausible fact edits and regressed from 0.966 to 0.965. We reverted it and tightened evidence admission.
+Several plausible approaches failed. Prompt voting reached 0.8512 locally but 0.783 publicly. TF-IDF reached 0.8261 out of fold but missed no-context cultural facts. QA retrieval often found the right entity and wrong relation; global substrings confused instructions with evidence. v87 made two plausible fact edits and regressed from 0.966 to 0.965, so we reverted it.
 
-This sequence changed how experiments were selected. Retrieval became proposal-only, context rules became relation-aware, and researched facts required both provenance and a typed predicate. Candidate batches without a defensible expected direction were quarantined rather than submitted.
+The decision log converted these failures into policy: retrieval became proposal-only, context rules became relation-aware, and facts required provenance plus a typed predicate. Admitted changes had to emit a trace and preserve 249 regression tests, including 225 deterministic controls.
 
 \subsection{Results}
 
-Table~\ref{tab:results} separates released-label validation from leaderboard results. The full cascade makes two errors on 299 released labels; both concern internally inconsistent controls, which we did not patch with row-specific exceptions. The deterministic subset covers 225 rows with no error. On Phase 1, v91 finished public rank 5 at 0.967 and private rank 1 at 0.982. The private improvement suggests that the conservative policy transferred beyond the public slice, but it does not prove that each of the five v91 changes generalized individually.
+Table~\ref{tab:results} separates released-label validation from aggregate Phase 1 evaluation. The cascade makes two errors on 299 labels; both concern inconsistent controls that we did not patch row by row. The deterministic subset covers 225 rows without error. Public and private macro-F1 were 0.967 and 0.982. These aggregate scores neither identify row-level errors nor isolate the effect of each v91 rule.
 
 \begin{table}[t]
 \caption{Validation and Phase 1 results.}
@@ -261,8 +261,8 @@ Evaluation & Macro-F1 & Other result \\
 \midrule
 Released set (299) & 0.993264 & accuracy 0.993311 \\
 Deterministic (225) & 1.000000 & label-0 F1 1.000000 \\
-Phase 1 public & 0.967 & rank 5 \\
-Phase 1 private & \textbf{0.982} & \textbf{rank 1} \\
+Phase 1 public & 0.967 & aggregate held-out split \\
+Phase 1 private & \textbf{0.982} & aggregate final split \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -336,7 +336,7 @@ No fine-tuned checkpoint is required. The package pins the public Qwen quantizat
 
 \section{Conclusion}
 
-The largest gain came from changing the unit of reasoning, not enlarging the model. Exact provenance and typed solvers handled cases with clear relations; the fixed judge handled the uncertain tail. This yielded a first-place private Phase 1 score, reproducible output, and a completed 5,000-row Phase 2 run within the runtime limit. The system also exposes why each deterministic decision was made and when it chose to abstain.
+The experiments indicate that performance depended more on matching the decision method to the task than on enlarging the model. Exact provenance and typed solvers handled cases with clear relations; the fixed judge handled the uncertain tail. The resulting pipeline reproduced its Phase 1 output and completed the 5,000-row Phase 2 run within the runtime limit. Its traces also expose which rule fired, which relation was checked, and where the system abstained.
 
 \section*{Limitations}
 

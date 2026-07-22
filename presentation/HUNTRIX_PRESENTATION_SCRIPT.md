@@ -11,18 +11,18 @@ The paper follows the ACL/EMNLP author-year citation convention. The presentatio
 | Presenter | Slides | Approximate time |
 |---|---:|---:|
 | Touhidul Alam Seyam | 1-4 | 3 min 35 sec |
-| MD. Abtahee Kabir | 5-8 | 3 min 50 sec |
+| MD. Abtahee Kabir | 5-8 | 4 min |
 | Joyeta Barua Moni | 9-12 | 3 min 55 sec |
 | Noore Tamanna Orny | 13-15 | 2 min 50 sec |
 
-The individual slide targets add up to 14 minutes and 10 seconds. In rehearsal, aim for 13 minutes and 40 seconds to leave room for brief pauses during handoffs.
+The individual slide targets add up to 14 minutes and 20 seconds. In rehearsal, aim for 13 minutes and 50 seconds to leave room for brief pauses during handoffs.
 
-## Slide 1: Private rank 1 came from changing the decision path
+## Slide 1: Evidence-first selective inference for Bengali hallucination detection
 
 **Presenter:** Touhidul Alam Seyam
 **Target:** 45 seconds
 
-Good morning. We are Team Huntrix. Our final Phase 1 system scored 0.982 on the private leaderboard and finished first. The public score was 0.967. The main reason was not a larger model or a large fine-tune. We changed which method was allowed to answer each kind of question. Exact cases went through deterministic evidence. Only the uncertain remainder went to the language model. This talk explains that decision, what failed before it, and how we packaged the result for Phase 2.
+Good morning. We are Team Huntrix. This talk is about a research question rather than a leaderboard position: when is a Bengali hallucination decision exact enough for a deterministic method, and when should the system abstain to a language-model judge? We will show how that question changed our architecture, which experiments failed, how the decision log shaped later versions, and what the organizer-run Phase 2 notebook revealed about source shift. The final score appears later as one evaluation view, alongside local tests, reproducibility checks, and runtime evidence.
 
 ## Slide 2: One binary label hid many different reasoning tasks
 
@@ -31,14 +31,14 @@ Good morning. We are Team Huntrix. Our final Phase 1 system scored 0.982 on the 
 
 The label looked simple: zero for hallucinated and one for faithful. The rows were not simple. Some asked whether a response followed a supplied passage. Others needed arithmetic, option parsing, Bengali morphology, idiom meaning, legal sections, or a historical fact. One generic judge prompt had to switch between all of these without being told which evidence standard to use. It gave us a useful baseline, but it also created a ceiling. A response could sound reasonable while answering the wrong relation. That pushed us toward task routing.
 
-## Slide 3: The breakthrough was a selective cascade
+## Slide 3: The working hypothesis became a selective cascade
 
 **Presenter:** Touhidul Alam Seyam
 **Target:** 55 seconds
 
 Our fix was a selective cascade. We normalize the row, identify its task family, and try only the rules that belong to that family. Exact lineage can decide an exact source match. Structured solvers can decide a parsed number or option. Context checks can decide a contradiction inside the supplied passage. Typed evidence can decide an idiom or legal relation. Each stage can also return nothing. If the source is only similar, or the relation is unclear, we do not force a label. The row reaches the judge. The next slide opens this router and shows the actual branch conditions.
 
-## Slide 4: The router selected an evidence policy before predicting
+## Slide 4: Routing made abstention an explicit state
 
 **Presenter:** Touhidul Alam Seyam
 **Target:** 65 seconds
@@ -47,12 +47,12 @@ This is the router in operational form. After normalization, the first question 
 
 **Handoff:** Abtahee will quantify that split and then open the two main verification paths.
 
-## Slide 5: Deterministic routing handled 93.7% of Phase 1
+## Slide 5: Structured solvers shared one decision contract
 
 **Presenter:** MD. Abtahee Kabir
-**Target:** 50 seconds
+**Target:** 60 seconds
 
-The final router resolved 2,358 of the 2,516 Phase 1 rows before LLM inference. That is 93.72 percent. The judge saw 158 unique rows, or 6.28 percent. Earlier in development the uncertain queue was 620, so the deterministic layers removed almost three quarters of the expensive tail. This did more than save time. It also reduced the number of rows exposed to prompt variation. One detail: 158 is a row count. Some no-context rows received two or three views, so the number of model requests was higher than 158.
+The deterministic branch was not one large collection of keywords. It contained separate parsers with the same output contract. The numeric solver normalized Bengali digits, units, dates, and ranges before checking the exact comparison requested. The multiple-choice solver extracted the option set, mapped aliases, and verified that the response selected a valid option. The morphology solver identified the requested form and compared the root, suffix, or grammatical class. Idiom and lexical rows first distinguished literal from figurative meaning. All four produced an entity, predicate, parsed value, source, and verdict. If any required field was missing or contradictory, the solver returned null. This shared contract made the router testable even though the parsers were task-specific.
 
 ## Slide 6: Evidence could decide only when the relation matched
 
@@ -84,26 +84,26 @@ The fallback used Qwen3.6 27B in a 16.332 GiB quantized checkpoint. Context rows
 
 Every deterministic fact was stored as a typed evidence record. The record carried a source identifier, source family, normalized entity, predicate, value, and provenance. At prediction time, four gates had to pass. The entity had to match. The requested predicate had to match, not merely appear near the same topic. The value needed exact or task-specific equivalence. Finally, no source of equal trust could contradict it. The resulting trace recorded the route, source, predicate, and verdict. If any gate failed, the verdict was null and the row moved forward. This trace made error analysis possible without storing a manual label vector for the test set.
 
-## Slide 10: Routing produced the largest score jump
+## Slide 10: Score progression tracked changes in method
 
 **Presenter:** Joyeta Barua Moni
 **Target:** 55 seconds
 
-This score history changed how we thought about the problem. The early character and embedding baseline scored 0.657. Gemma reached 0.742, and a Qwen judge reached 0.797. The largest single jump came at v6, when source and structured routing raised the score to 0.903. After that, progress was smaller and more forensic. We tightened provenance, repaired relation checks, and added legal and idiom evidence. v85 reached 0.966. v87 is the small dip on the right. We reverted it. v91 finished at 0.967 publicly.
+This history is useful because it shows changes in method, including a regression. The early character and embedding baseline scored 0.657. Gemma reached 0.742, and a uniform Qwen judge reached 0.797. At v6, source and structured routing raised the score to 0.903, which changed our main hypothesis from model selection to decision routing. v37 introduced a stricter provenance gate. Later versions repaired relation checks and added legal and idiom evidence. v87 is the dip near the right: two plausible fact edits reduced the public score, so we reverted them. v91 then required typed relations and reached 0.967 publicly. We use the curve to identify pivots, not to imply that every version was progress.
 
-## Slide 11: Several reasonable ideas made the score worse
+## Slide 11: Decision logs turned failed runs into routing rules
 
 **Presenter:** Joyeta Barua Moni
 **Target:** 60 seconds
 
-Some of the most useful experiments were failures. Prompt voting looked decent on the released set and scored only 0.783 publicly. The compact TF-IDF verifier improved out of fold but struggled with cultural facts that had no context. Raw QA retrieval often found a passage about the right entity but the wrong relation. v87 was the clearest warning. We changed two labels using facts that looked plausible, and the public score fell from 0.966 to 0.965. We reverted those edits. From that point, a source was not enough. Every accepted record also needed the exact predicate the question asked for.
+The decision log mattered because a failed experiment had to change the next experiment. Prompt voting looked reasonable on the released set and scored 0.783 publicly, so we stopped treating prompt variation as independent evidence. The TF-IDF verifier reached 0.826 out of fold but missed cultural facts, so we retained it only as a portable fallback. Raw retrieval often found the right entity and the wrong relation, so retrieval was restricted to proposing candidates. v87 changed two labels using plausible facts and reduced the public score from 0.966 to 0.965. We reverted it and added the source-plus-predicate admission rule. Later changes also had to preserve the regression suite and emit an evidence trace.
 
-## Slide 12: The final result held across local, public, and private views
+## Slide 12: Regression gates separated progress from score noise
 
 **Presenter:** Joyeta Barua Moni
 **Target:** 55 seconds
 
-We kept the evaluation views separate. On the 299 released labels, the full cascade reached 0.9933 macro F1. The deterministic subset covered 225 of those rows without an error. The public leaderboard score was 0.967 at rank five. The final private score was 0.982 at rank one. That private result tells us the conservative policy generalized better than the public slice suggested. It does not tell us that every individual v91 rule will survive Phase 2. The source mix is broader, so we treat the private score as evidence, not a guarantee.
+A score alone could not tell us whether a change was safe, so we used four gates. The codebase had 249 automated tests, including 225 deterministic controls. Three inference runs produced byte-identical CSVs, and validation found no schema or ID-order failure. We then reported the aggregate evaluation separately: 0.9933 macro F1 on 299 released labels, 0.967 on the public Phase 1 split, and 0.982 on the private split. The frozen output hash matched the scored CSV. Finally, the organizer-run notebook validated all 5,000 Phase 2 rows in 3 hours and 52 minutes. These checks answer different questions; none substitutes for row-level Phase 2 accuracy, which has not been released.
 
 **Handoff:** Orny will cover reproducibility, runtime, and the Phase 2 plan.
 
@@ -121,12 +121,12 @@ The organizer-run Phase 2 notebook processed exactly 5,000 rows on two Tesla T4 
 
 Phase 2 changed the source distribution as expected. The organizer listed Common Crawl, recent newspapers, Wikipedia, Banglapedia, government service pages, Bangladesh law, NCTB textbooks, and literature. Deterministic coverage fell from 93.72 percent in Phase 1 to 4.14 percent in the held-out run. The router did not compensate by forcing approximate evidence. It abstained, and 95.86 percent of rows reached the fixed judge. That raised runtime to 3 hours and 52 minutes, but the notebook still finished with more than five hours of headroom. Accuracy remains an open question until the organizer provides a score.
 
-## Slide 15: Be exact when possible. Abstain when necessary.
+## Slide 15: What the experiments support—and what remains open
 
 **Presenter:** Noore Tamanna Orny
 **Target:** 45 seconds
 
-We will close with three lessons. First, this benchmark is a mixture of tasks, and those tasks need different evidence standards. Second, a related passage is not enough. The entity and the requested relation must match. Third, the fixed judge preserved runtime compliance when Phase 2 source coverage fell sharply. The system produced a private Phase 1 score of 0.982, reproduced the scored CSV offline, and completed the actual 5,000-row Phase 2 run in 3 hours and 52 minutes. We are ready for your questions.
+We will close by separating supported findings from open questions. The experiments support three design choices: task families benefit from separate policies, predicate alignment reduces relation swaps, and explicit abstention keeps the pipeline safe when deterministic coverage falls. The main limitations are equally important. We had only 299 released labels, aggregate competition scores provide no row-level errors, and the Phase 2 accuracy result is still unknown. When those labels or analyses become available, the next work is to inspect the judged tail, recalibrate uncertain cases, and expand licensed evidence for civic and news domains. What we can already verify is reproducibility and runtime compliance. We are ready for your questions.
 
 ## Likely questions
 
