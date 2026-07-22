@@ -57,7 +57,7 @@ A Deterministic Selective Cascade}
 \maketitle
 
 \begin{abstract}
-We present a selective cascade for detecting hallucinations in Bengali model responses. Instead of asking one model to judge every row, the system first applies exact source-lineage checks, task-specific solvers, context grounding, and relation-typed evidence. A quantized open-weight language model judges only unresolved cases. This design raised public macro-F1 from 0.657 to 0.967 and obtained private macro-F1 0.982, ranking first in Phase 1. On 299 released labels, the full cascade reaches 0.9933 macro-F1; deterministic stages cover 225 rows without error. Three offline Kaggle runs on two Tesla T4 GPUs reproduced the scored 2,516-row output byte for byte in 440.87--593.43 seconds. A 5,000-row same-mix run took 14.60 minutes, while an all-uncertain stress estimate remained below 5.5 hours. The study shows that careful evidence admission, explicit abstention, and deterministic scheduling can outperform uniform LLM judging while satisfying a nine-hour offline inference limit.
+We present a selective cascade for Bengali hallucination detection. Source-lineage checks, task-specific solvers, context grounding, and relation-typed evidence act first; a quantized open-weight model judges only abstentions. The system reached public macro-F1 0.967 and private macro-F1 0.982, ranking first in Phase 1. On 299 released labels it reaches 0.9933 macro-F1, with 225 deterministic rows classified without error. Three T4$\times$2 runs reproduced the scored 2,516-row output in 440.87--593.43 seconds. In the organizer-executed 5,000-row Phase 2 run, 4,793 rows reached the judge and inference took 3~hours 52~minutes, using 42.97\% of the nine-hour budget \citep{phase2run}. Strict evidence admission and explicit abstention preserved runtime compliance under substantial source shift.
 \end{abstract}
 
 \section{Introduction}
@@ -295,9 +295,9 @@ Property & Measurement \\
 Hardware & Kaggle Tesla T4$\times$2; offline \\
 Model & Qwen3.6-27B Q4\_K\_P; 16.332~GiB \\
 2,516-row runs & 440.87, 527.03, 593.43 seconds \\
-5,000 same-mix run & 876.14 seconds (14.60 minutes) \\
-All-uncertain estimate & 5.2--5.5 hours \\
-Output & 1,181 zeros; 1,335 ones \\
+Phase 2 held-out run & 13,921.91 seconds (3:52:01.91) \\
+Phase 2 routing & 207 deterministic; 4,793 judged \\
+Phase 1 output & 1,181 zeros; 1,335 ones \\
 Regression suite & 249 tests passing at freeze \\
 \bottomrule
 \end{tabularx}
@@ -309,7 +309,7 @@ The evidence inventory combines public Bengali resources rather than treating an
 
 \subsection{Held-Out Domain Shift}
 
-The 5,000-row run duplicates the current source mixture and therefore measures throughput, not domain accuracy. The organizer preview instead names Common Crawl, Bengali Wikipedia, Banglapedia, government service pages, recent newspapers, legislation, NCTB textbooks, and Bengali literature \citep{phase2}. Exact Phase 1 lineage should cover less of this distribution. Table~\ref{tab:shift} states the fallback policy.
+The organizer preview names Common Crawl, Bengali Wikipedia, Banglapedia, government service pages, recent newspapers, legislation, NCTB textbooks, and Bengali literature \citep{phase2}. The completed 5,000-row held-out run confirmed the expected shift: deterministic coverage fell from 93.72\% in Phase 1 to 4.14\% in Phase 2, and 4,793 rows reached the judge \citep{phase2run}. Table~\ref{tab:shift} states the fallback policy.
 
 \begin{table}[t]
 \caption{Routing policy for announced Phase 2 sources.}
@@ -330,17 +330,17 @@ Unknown & Skip lineage and invoke the fixed judge \\
 \end{tabularx}
 \end{table}
 
-Unfamiliar sources bypass lineage and reach context reasoning or the judge; approximate matches are never forced. Runtime rises as deterministic coverage falls, but the all-uncertain estimate remains below nine hours.
+Unfamiliar sources bypass lineage and reach context reasoning or the judge; approximate matches are never forced. The measured Phase 2 run completed in 13,921.91 seconds, leaving 5~hours 7~minutes 58~seconds of headroom under the nine-hour limit.
 
 No fine-tuned checkpoint is required. The package pins the public Qwen quantization, CUDA runtime, evidence dataset, and inference notebook. The router contains short, citation-backed facts from public sources, but no hidden labels or manually assigned row-label vector. Every output is recomputed from the input row and frozen assets.
 
 \section{Conclusion}
 
-The largest gain came from changing the unit of reasoning, not enlarging the model. Exact provenance and typed solvers handled cases with clear relations; the fixed judge handled the uncertain tail. This yielded a first-place private Phase 1 score, reproducible output, and substantial headroom under the Phase 2 runtime limit. The system also exposes why each deterministic decision was made and when it chose to abstain.
+The largest gain came from changing the unit of reasoning, not enlarging the model. Exact provenance and typed solvers handled cases with clear relations; the fixed judge handled the uncertain tail. This yielded a first-place private Phase 1 score, reproducible output, and a completed 5,000-row Phase 2 run within the runtime limit. The system also exposes why each deterministic decision was made and when it chose to abstain.
 
 \section*{Limitations}
 
-The private score does not guarantee equal accuracy on the broader Phase 2 source mix. Exact lineage cannot replace general reasoning on unfamiliar civic, legal, textbook, and news content, and the 299 released labels are too small for reliable per-domain estimates. The all-uncertain timing is a projection, not an adversarial run. Evidence can age, conflict, or carry licensing constraints; high-stakes civic use still requires human escalation.
+The private score does not guarantee equal accuracy on the broader Phase 2 source mix. Exact lineage cannot replace general reasoning on unfamiliar civic, legal, textbook, and news content, and the 299 released labels are too small for reliable per-domain estimates. The completed notebook proves runtime compliance but contains no Phase 2 ground truth or accuracy score. Evidence can age, conflict, or carry licensing constraints; high-stakes civic use still requires human escalation.
 
 % The organizer's four-page limit excludes references. This explicit page break
 % guarantees that the body occupies pages 1--4 and references begin afterward.

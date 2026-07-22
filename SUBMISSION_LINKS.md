@@ -32,6 +32,7 @@ This page is the authoritative link register for the Huntrix v91 package.
 - [Final presentation with embedded speaker notes](presentation/Huntrix_Final_Presentation.pptx)
 - [Presentation PDF](presentation/Huntrix_Final_Presentation.pdf)
 - [Four-presenter rehearsal script and source map](presentation/HUNTRIX_PRESENTATION_SCRIPT.md)
+- [Measured Phase 2 runtime evidence](PHASE2_RUNTIME_EVIDENCE.md)
 - [Freeze manifest](FREEZE_MANIFEST.json)
 - [Methodology disclosure](METHODOLOGY_DISCLOSURE.md)
 - [External data register](DATA_SOURCES.md)

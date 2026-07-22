@@ -13,9 +13,9 @@ The paper follows the ACL/EMNLP author-year citation convention. The presentatio
 | Touhidul Alam Seyam | 1-4 | 3 min 35 sec |
 | MD. Abtahee Kabir | 5-8 | 3 min 50 sec |
 | Joyeta Barua Moni | 9-12 | 3 min 55 sec |
-| Noore Tamanna Orny | 13-15 | 2 min 40 sec |
+| Noore Tamanna Orny | 13-15 | 2 min 50 sec |
 
-The individual slide targets add up to 14 minutes. In rehearsal, aim for 13 minutes and 30 seconds to leave room for brief pauses during handoffs.
+The individual slide targets add up to 14 minutes and 10 seconds. In rehearsal, aim for 13 minutes and 40 seconds to leave room for brief pauses during handoffs.
 
 ## Slide 1: Private rank 1 came from changing the decision path
 
@@ -107,26 +107,26 @@ We kept the evaluation views separate. On the 299 released labels, the full casc
 
 **Handoff:** Orny will cover reproducibility, runtime, and the Phase 2 plan.
 
-## Slide 13: Three full runs reproduced the same CSV under 10 minutes
+## Slide 13: Phase 2 completed in 3 h 52 min with 95.9% judged
 
 **Presenter:** Noore Tamanna Orny
-**Target:** 55 seconds
+**Target:** 65 seconds
 
-We ran the frozen notebook three times on Kaggle with two T4 GPUs. The complete 2,516-row runs took 440.87, 527.03, and 593.43 seconds. All three produced the same CSV bytes and the same SHA-256 hash as the scored submission. We reported 0.17 hours, or 612 seconds, as a conservative form value. A 5,000-row same-mix test took 14.60 minutes. We also estimated the pessimistic case where every row needs all three judge views. That stays around 5.2 to 5.5 hours, below the nine-hour limit.
+The organizer-run Phase 2 notebook processed exactly 5,000 rows on two Tesla T4 GPUs. The router finished in 73.18 seconds but resolved only 207 rows, or 4.14 percent. The remaining 4,793 rows went to Qwen. The model was ready 171.25 seconds after the notebook started, and the judge stage took 13,747.50 seconds. End-to-end runtime was 13,921.91 seconds, which is 3 hours, 52 minutes, and 1.91 seconds. The output validation cell completed successfully with 5,000 ordered IDs and binary labels. This used 42.97 percent of the nine-hour budget. It is measured runtime evidence, not a Phase 2 accuracy score.
 
-## Slide 14: Phase 2 widens the source mix, so abstention matters more
+## Slide 14: Phase 2 coverage fell from 93.72% to 4.14%
 
 **Presenter:** Noore Tamanna Orny
 **Target:** 60 seconds
 
-Phase 2 changes the source distribution. The organizer listed Common Crawl, recent newspapers, Wikipedia, Banglapedia, government service pages, Bangladesh law, NCTB textbooks, and literature. Exact Phase 1 lineage will naturally cover less. The router handles this by failing closed. It first tries context clauses, structured solvers, and exact entity-relation checks. If those checks fail, the row skips lineage and reaches the same fixed judge. Lower deterministic coverage will increase runtime, but it should not make approximate retrieval more powerful. Our all-uncertain timing gives us room for that shift. Accuracy is still the open question, which is why abstention remains important.
+Phase 2 changed the source distribution as expected. The organizer listed Common Crawl, recent newspapers, Wikipedia, Banglapedia, government service pages, Bangladesh law, NCTB textbooks, and literature. Deterministic coverage fell from 93.72 percent in Phase 1 to 4.14 percent in the held-out run. The router did not compensate by forcing approximate evidence. It abstained, and 95.86 percent of rows reached the fixed judge. That raised runtime to 3 hours and 52 minutes, but the notebook still finished with more than five hours of headroom. Accuracy remains an open question until the organizer provides a score.
 
 ## Slide 15: Be exact when possible. Abstain when necessary.
 
 **Presenter:** Noore Tamanna Orny
 **Target:** 45 seconds
 
-We will close with three lessons. First, this benchmark is a mixture of tasks, and those tasks need different evidence standards. Second, a related passage is not enough. The entity and the requested relation must match. Third, selective judging made the system faster and steadier because the LLM handled only the unresolved tail. That combination produced a private score of 0.982, reproduced the scored CSV offline, and stayed within the Phase 2 runtime limit. We are ready for your questions.
+We will close with three lessons. First, this benchmark is a mixture of tasks, and those tasks need different evidence standards. Second, a related passage is not enough. The entity and the requested relation must match. Third, the fixed judge preserved runtime compliance when Phase 2 source coverage fell sharply. The system produced a private Phase 1 score of 0.982, reproduced the scored CSV offline, and completed the actual 5,000-row Phase 2 run in 3 hours and 52 minutes. We are ready for your questions.
 
 ## Likely questions
 
@@ -163,3 +163,4 @@ The public leaderboard evaluated only part of the test set. The private score ca
 5. Qwen3.6-27B model card: <https://huggingface.co/Qwen/Qwen3.6-27B-FP8>
 6. llama.cpp: <https://github.com/ggml-org/llama.cpp>
 7. Team Huntrix experiment log, frozen manifest, deterministic trace, Kaggle runtime records, and final leaderboard records in this repository.
+8. Organizer-executed Phase 2 notebook `huntrix-1.ipynb` and its final runtime report: 5,000 rows on Tesla T4 x2, completed July 22, 2026.
