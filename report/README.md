@@ -1,15 +1,19 @@
 # Build the technical report
 
-The report uses the IEEE conference class, native TikZ diagrams, and PGFPlots.
-It has no external image dependency.
+The paper uses the official ACL LaTeX class in final, non-anonymous mode. The
+style files are vendored unmodified at the exact upstream commit recorded in
+`ACL_STYLE_SOURCE.md`. TikZ and PGFPlots generate the figures, so there is no
+external image dependency.
 
-From the repository root:
+From the public repository root:
 
 ```bash
 tectonic report/Huntrix_Technical_Report.tex --outdir .
-pdfinfo Huntrix_Technical_Report.pdf | grep Pages
+pdfinfo Huntrix_Technical_Report.pdf | grep -E 'Pages|Page size'
+pdffonts Huntrix_Technical_Report.pdf
 ```
 
-The expected page count is `4`. Tectonic may download LaTeX packages on the
-first local build; this report build is separate from the offline Kaggle
-inference notebook.
+The expected result is one five-page A4 PDF: pages 1--4 contain the paper body,
+and page 5 begins the references. Every listed font should be embedded. Tectonic
+may download LaTeX packages on the first local build; report compilation is
+separate from the offline Kaggle inference notebook.

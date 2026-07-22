@@ -52,9 +52,11 @@ to the scored v91 submission.
   redistribution status.
 - `METHODOLOGY_DISCLOSURE.md` — rule audit, public-source verification method,
   and organizer clarification.
-- `Huntrix_Technical_Report.pdf` — four-page technical methodology report.
-- `report/Huntrix_Technical_Report.tex` — IEEE-style LaTeX source with native
-  TikZ and PGFPlots figures.
+- `Huntrix_Technical_Report.pdf` — ACL-style paper with four pages of main
+  content plus references in the same PDF.
+- `report/Huntrix_Technical_Report.tex` — ACL-style LaTeX source with native
+  TikZ and PGFPlots figures; the pinned official style and bibliography files
+  are included beside it.
 - `SUBMISSION_LINKS.md` — organizer form, competition pages, and exact public
   artifact versions.
 - `RUNBOOK.md` — copy-and-run instructions and expected checks.

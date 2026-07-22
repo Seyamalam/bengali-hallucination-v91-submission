@@ -45,9 +45,9 @@ in the evaluation bundle; the files will be removed or replaced if requested.
 each accepted answer set. Those pages retain their own terms. The runtime stores
 short factual answer strings and citations, not copies of the cited pages.
 
-## Competition data
+## Paper template
 
-No competition test rows, hidden labels, or generated Phase 1 prediction vector
-are included in the public Git repository or public v91 runtime dataset. The
-notebook reads the competition input only from the organizer-mandated mounted
-path at execution time.
+The technical paper vendors the unmodified `acl.sty` and `acl_natbib.bst` files
+from the official Association for Computational Linguistics style repository,
+pinned at commit `d5adc823ff0f80f98c80405ca0ab66c68e684409`. Exact hashes and
+the upstream link are recorded in `report/ACL_STYLE_SOURCE.md`.

@@ -27,7 +27,7 @@ This page is the authoritative link register for the Huntrix v91 package.
 
 - [Exact organizer form values](FORM_VALUES.md)
 - [Run the notebook on Kaggle](RUNBOOK.md)
-- [Four-page technical report](Huntrix_Technical_Report.pdf)
+- [Four-page ACL-style paper, with references after page 4](Huntrix_Technical_Report.pdf)
 - [LaTeX report source](report/Huntrix_Technical_Report.tex)
 - [Freeze manifest](FREEZE_MANIFEST.json)
 - [Methodology disclosure](METHODOLOGY_DISCLOSURE.md)
