@@ -31,7 +31,7 @@ This page is the authoritative link register for the Huntrix v91 package.
 - [Four-page ACL-style paper at immutable result commit `e9cdc25`](https://github.com/Seyamalam/Huntrix_Olikbochon_Onsite_Submission/blob/e9cdc25ebf89096b2e3fdd976407f7797eecb96f/Huntrix_report.pdf)
 - [LaTeX report source](report/Huntrix_Technical_Report.tex)
 - [Final presentation with embedded speaker notes](presentation/Huntrix_Final_Presentation_20_Slides.pptx)
-- [Onsite presentation PDF at immutable result commit `e9cdc25`](https://github.com/Seyamalam/Huntrix_Olikbochon_Onsite_Submission/blob/e9cdc25ebf89096b2e3fdd976407f7797eecb96f/Huntrix_presentation.pdf)
+- [Onsite presentation PDF at immutable paper-diagram commit `c4a8b98`](https://github.com/Seyamalam/Huntrix_Olikbochon_Onsite_Submission/blob/c4a8b98c943bff8ea4b200a0f1b120afefd7806d/Huntrix_presentation.pdf)
 - [Four-presenter rehearsal script and source map](presentation/HUNTRIX_PRESENTATION_SCRIPT.md)
 - [Measured Phase 2 runtime evidence](PHASE2_RUNTIME_EVIDENCE.md)
 - [Freeze manifest](FREEZE_MANIFEST.json)

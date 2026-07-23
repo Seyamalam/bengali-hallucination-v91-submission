@@ -10,7 +10,7 @@ https://www.kaggle.com/code/seyamalam/bengali-hallucination-v91-compliance-infer
 
 ## The presentation PDF link (GitHub)
 
-https://github.com/Seyamalam/Huntrix_Olikbochon_Onsite_Submission/blob/e9cdc25ebf89096b2e3fdd976407f7797eecb96f/Huntrix_presentation.pdf
+https://github.com/Seyamalam/Huntrix_Olikbochon_Onsite_Submission/blob/c4a8b98c943bff8ea4b200a0f1b120afefd7806d/Huntrix_presentation.pdf
 
 ## The technical report/paper link (GitHub)
 
