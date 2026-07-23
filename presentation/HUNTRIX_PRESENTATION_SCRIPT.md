@@ -1,8 +1,8 @@
 # Team Huntrix Final Presentation Script
 
 **Talk length:** approximately 14 minutes
-**Format:** 15 slides, four presenters
-**Deck:** `Huntrix_Final_Presentation.pptx`
+**Format:** 20 slides, four presenters. Slides 1–15 are the timed talk; slides 16–20 are a technical appendix for Q&A.
+**Deck:** `Huntrix_Final_Presentation_20_Slides.pptx`
 
 The paper follows the ACL/EMNLP author-year citation convention. The presentation uses short numbered source markers so citations remain readable on screen; the full source map is at the end of this script.
 

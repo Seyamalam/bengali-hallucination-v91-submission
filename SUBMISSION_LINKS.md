@@ -29,7 +29,7 @@ This page is the authoritative link register for the Huntrix v91 package.
 - [Run the notebook on Kaggle](RUNBOOK.md)
 - [Four-page ACL-style paper, with references after page 4](Huntrix_Technical_Report.pdf)
 - [LaTeX report source](report/Huntrix_Technical_Report.tex)
-- [Final presentation with embedded speaker notes](presentation/Huntrix_Final_Presentation.pptx)
+- [Final presentation with embedded speaker notes](presentation/Huntrix_Final_Presentation_20_Slides.pptx)
 - [Presentation PDF](presentation/Huntrix_Final_Presentation.pdf)
 - [Four-presenter rehearsal script and source map](presentation/HUNTRIX_PRESENTATION_SCRIPT.md)
 - [Measured Phase 2 runtime evidence](PHASE2_RUNTIME_EVIDENCE.md)
