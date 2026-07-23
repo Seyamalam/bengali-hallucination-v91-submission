@@ -73,6 +73,10 @@ accuracy result is claimed without the organizer's score. See
   presentation.
 - `presentation/HUNTRIX_PRESENTATION_SCRIPT.md` — timed rehearsal script,
   handoffs, likely questions, and numbered source map.
+- `presentation/Huntrix_Presentation_Script.docx` — presenter-ready rehearsal
+  edition with the run of show, slide-by-slide scripts, timing, and handoffs.
+- `presentation/Huntrix_Presentation_Script.pdf` — fixed-layout 13-page copy of
+  the presenter-ready rehearsal edition.
 - `PHASE2_RUNTIME_EVIDENCE.md` — measured organizer-run Phase 2 timing and
   routing distribution.
 - `SUBMISSION_LINKS.md` — organizer form, competition pages, and exact public
