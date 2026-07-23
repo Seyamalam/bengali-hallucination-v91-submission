@@ -103,7 +103,7 @@ The decision log mattered because a failed experiment had to change the next exp
 **Presenter:** Joyeta Barua Moni
 **Target:** 60 seconds
 
-We treated reproducibility as a result, not an administrative detail. The codebase had 249 automated tests, including 225 deterministic controls. The notebook reads the organizer's literal test path, loads pinned model, runtime, and evidence assets, and uses a fixed row, prompt, and batch schedule. Two llama.cpp servers run on the two T4 GPUs. The final validator preserves incoming IDs and writes exactly id and label. Three full runs produced byte-identical files, the frozen hash matched the scored CSV, and the organizer-run notebook validated 5,000 Phase 2 rows in 3 hours and 52 minutes. These checks establish execution integrity; they do not substitute for an unreleased Phase 2 accuracy score.
+We treated reproducibility as a result, not an administrative detail. The codebase had 249 automated tests, including 225 deterministic controls. The notebook reads the organizer's literal test path, loads pinned model, runtime, and evidence assets, and uses a fixed row, prompt, and batch schedule. One local llama.cpp server tensor-splits the model equally across the two T4 GPUs. The final validator preserves incoming IDs and writes exactly id and label. Three full runs produced byte-identical files, the frozen hash matched the scored CSV, and the organizer-run notebook validated 5,000 Phase 2 rows in 3 hours and 52 minutes. These checks establish execution integrity; they do not substitute for an unreleased Phase 2 accuracy score.
 
 **Handoff:** Orny will cover the measured runtime and Phase 2 source shift.
 
