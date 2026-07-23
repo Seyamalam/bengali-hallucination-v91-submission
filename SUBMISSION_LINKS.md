@@ -16,7 +16,7 @@ This page is the authoritative link register for the Huntrix v91 package.
 
 | Artifact | Exact public link |
 |---|---|
-| Canonically named GitHub notebook | [`Huntrix_inference_notebook.ipynb`](https://github.com/Seyamalam/Huntrix_Olikbochon_Onsite_Submission/blob/main/Huntrix_inference_notebook.ipynb) |
+| Canonically named GitHub notebook | [`Huntrix_inference_notebook.ipynb` at package commit `b4a9777`](https://github.com/Seyamalam/Huntrix_Olikbochon_Onsite_Submission/blob/b4a97775f8a72af4c9e4b8086ccbccc8ec864840/Huntrix_inference_notebook.ipynb) |
 | Frozen notebook submitted during the previous phase | [`inference.ipynb` at immutable commit `26fefdb`](https://github.com/Seyamalam/Huntrix_Olikbochon_Onsite_Submission/blob/26fefdbbd054d0069914bf66dcb79aa59d64fbc0/inference.ipynb) |
 | Kaggle inference notebook | [version 3](https://www.kaggle.com/code/seyamalam/bengali-hallucination-v91-compliance-inference/versions/3) |
 | Qwen3.6-27B Q4_K_P checkpoint | [Kaggle Model, version 1](https://www.kaggle.com/models/snowrab/qwen3-6-27b-q4-k-p/pyTorch/default/1) |
