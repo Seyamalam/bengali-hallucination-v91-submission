@@ -26,7 +26,7 @@ Registration code: `03-74970`
 
 ## Inference Notebook Link (Github Link)
 
-https://github.com/Seyamalam/bengali-hallucination-v91-submission/blob/26fefdbbd054d0069914bf66dcb79aa59d64fbc0/inference.ipynb
+https://github.com/Seyamalam/Huntrix_Olikbochon_Onsite_Submission/blob/26fefdbbd054d0069914bf66dcb79aa59d64fbc0/inference.ipynb
 
 ## Inference Notebook Link (Kaggle Link)
 

@@ -1,4 +1,16 @@
-# Huntrix · Public v91 Phase 2 inference
+# Huntrix — Olikbochon Onsite Submission
+
+This public repository is the single submission package for Team Huntrix.
+
+## Required onsite files
+
+| Deliverable | File |
+|---|---|
+| Technical report | [`Huntrix_report.pdf`](Huntrix_report.pdf) |
+| Presentation | [`Huntrix_presentation.pdf`](Huntrix_presentation.pdf) |
+| Final inference notebook | [`Huntrix_inference_notebook.ipynb`](Huntrix_inference_notebook.ipynb) |
+| Training notebook | Not applicable; no model training or fine-tuning was used |
+| Form values | [`form.md`](form.md) |
 
 ## Team
 
@@ -51,7 +63,8 @@ accuracy result is claimed without the organizer's score. See
 
 ## Files
 
-- `inference.ipynb` — frozen raw-input inference notebook.
+- `Huntrix_inference_notebook.ipynb` — frozen raw-input inference notebook
+  submitted during the previous phase.
 - `FREEZE_MANIFEST.json` — exact versions, hashes, hardware, runtime, and
   reproduction result.
 - `CITATIONS.md` — model, runtime, benchmark, and evidence citations.
@@ -61,7 +74,7 @@ accuracy result is claimed without the organizer's score. See
   redistribution status.
 - `METHODOLOGY_DISCLOSURE.md` — rule audit, public-source verification method,
   and organizer clarification.
-- `Huntrix_Technical_Report.pdf` — ACL-style paper with four pages of main
+- `Huntrix_report.pdf` — ACL-style paper with four pages of main
   content plus references in the same PDF.
 - `report/Huntrix_Technical_Report.tex` — ACL-style LaTeX source with native
   TikZ and PGFPlots figures; the pinned official style and bibliography files
@@ -69,8 +82,8 @@ accuracy result is claimed without the organizer's score. See
 - `presentation/Huntrix_Final_Presentation_20_Slides.pptx` — light-themed
   scientific deck with a 15-slide timed talk and five technical appendix slides
   for Q&A, plus detailed methodology diagrams and speaker notes.
-- `presentation/Huntrix_Final_Presentation_20_Slides.pdf` — review copy of the
-  final presentation.
+- `Huntrix_presentation.pdf` — final onsite presentation in the required
+  submission format.
 - `presentation/HUNTRIX_PRESENTATION_SCRIPT.md` — timed rehearsal script,
   handoffs, likely questions, and numbered source map.
 - `presentation/Huntrix_Presentation_Script.docx` — presenter-ready rehearsal
@@ -83,6 +96,7 @@ accuracy result is claimed without the organizer's score. See
   artifact versions.
 - `RUNBOOK.md` — copy-and-run instructions and expected checks.
 - `FORM_VALUES.md` — the exact non-sensitive values for the organizer form.
+- `form.md` — copy-ready values for the onsite submission form.
 - `LICENSE` — MIT license for original Huntrix code only.
 
 The scored router includes short, citation-backed factual answer records

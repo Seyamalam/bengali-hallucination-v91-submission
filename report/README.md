@@ -9,8 +9,8 @@ From the public repository root:
 
 ```bash
 tectonic report/Huntrix_Technical_Report.tex --outdir .
-pdfinfo Huntrix_Technical_Report.pdf | grep -E 'Pages|Page size'
-pdffonts Huntrix_Technical_Report.pdf
+pdfinfo ../Huntrix_report.pdf | grep -E 'Pages|Page size'
+pdffonts ../Huntrix_report.pdf
 ```
 
 The expected result is one five-page A4 PDF: pages 1--4 contain the paper body,
