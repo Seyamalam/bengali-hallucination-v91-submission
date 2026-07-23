@@ -2,8 +2,8 @@
 
 This note records the completed Phase 2 inference run contained in
 `huntrix-1.ipynb`, supplied to the team after organizer execution on July 22,
-2026. It reports runtime and routing behavior only. It does not contain a Phase
-2 score or ground-truth labels.
+2026. It reports runtime and routing behavior. The organizers later released
+an aggregate Phase 2 score, but no row-level ground-truth labels.
 
 ## Execution identity
 
@@ -61,6 +61,7 @@ the Phase 1 source lineage. The router responded conservatively by abstaining
 instead of forcing approximate matches. The fixed Qwen fallback absorbed the
 larger queue and completed within the required runtime.
 
-No accuracy conclusion should be drawn until the organizers release a Phase 2
-score or evaluation result.
-
+The official Phase 2 standings released on July 23 report a score of `0.90144`
+for Huntrix, ranking the team seventh among 32 entries. This establishes the
+aggregate outcome, but it does not identify which rows, domains, or routing
+branches produced the remaining errors.

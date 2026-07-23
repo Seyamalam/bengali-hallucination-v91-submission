@@ -23,10 +23,11 @@ notebook is optional.
 
 ## Runtime on the test set of 5,000 rows
 
-**3 hours 42 minutes**
+**3 hours 52 minutes**
 
-- Decimal hours: `3.70`
-- Total minutes: `222`
+- Exact measured runtime: `3:52:01.91`
+- Decimal hours: `3.87`
+- Total whole minutes: `232`
 - Hardware: `GPU T4 ×2`
 
 ## Required files included

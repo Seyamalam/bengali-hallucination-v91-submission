@@ -47,8 +47,8 @@ to the scored v91 submission.
 The organizer-executed notebook completed the 5,000-row held-out input on
 Tesla T4 x2 in `13,921.9134s`, or **3 hours 52 minutes 1.91 seconds**. The
 router resolved 207 rows (4.14%) and sent 4,793 rows (95.86%) to Qwen. Output
-validation completed successfully. This is runtime evidence only; no Phase 2
-accuracy result is claimed without the organizer's score. See
+validation completed successfully. The official Phase 2 result was **0.90144,
+rank 7 of 32 teams**; no row-level labels were released. See
 `PHASE2_RUNTIME_EVIDENCE.md` for the complete measured breakdown.
 
 ## Scored reference
@@ -56,6 +56,7 @@ accuracy result is claimed without the organizer's score. See
 - Kaggle competition submission: `54836339`
 - Public leaderboard: **rank #5, macro-F1 0.967**
 - Private leaderboard: **rank #1, macro-F1 0.982**
+- Phase 2 private result: **rank #7 of 32, score 0.90144**
 - Phase 1 rows: `2,516`
 - Label counts: `{0: 1181, 1: 1335}`
 - Expected output SHA-256:

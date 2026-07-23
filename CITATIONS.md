@@ -5,6 +5,9 @@
 অলীকবচন: Bengali LLM Hallucination Detection Challenge. IUT 12th ICT FEST
 Datathon, Kaggle, 2026.
 
+Competition Organizers. **Olikbochon Phase 2 Results.** Official final
+standings released July 23, 2026. Huntrix score: `0.90144`; rank: `7/32`.
+
 ## Model and inference runtime
 
 - Qwen Team. **Qwen3 model family and technical documentation.** The frozen

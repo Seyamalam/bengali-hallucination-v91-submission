@@ -103,30 +103,30 @@ The decision log mattered because a failed experiment had to change the next exp
 **Presenter:** Joyeta Barua Moni
 **Target:** 60 seconds
 
-We treated reproducibility as a result, not an administrative detail. The codebase had 249 automated tests, including 225 deterministic controls. The notebook reads the organizer's literal test path, loads pinned model, runtime, and evidence assets, and uses a fixed row, prompt, and batch schedule. One local llama.cpp server tensor-splits the model equally across the two T4 GPUs. The final validator preserves incoming IDs and writes exactly id and label. Three full runs produced byte-identical files, the frozen hash matched the scored CSV, and the organizer-run notebook validated 5,000 Phase 2 rows in 3 hours and 52 minutes. These checks establish execution integrity; they do not substitute for an unreleased Phase 2 accuracy score.
+We treated reproducibility as a result, not an administrative detail. The codebase had 249 automated tests, including 225 deterministic controls. The notebook reads the organizer's literal test path, loads pinned model, runtime, and evidence assets, and uses a fixed row, prompt, and batch schedule. One local llama.cpp server tensor-splits the model equally across the two T4 GPUs. The final validator preserves incoming IDs and writes exactly id and label. Three full runs produced byte-identical files, the frozen hash matched the scored CSV, and the organizer-run notebook validated 5,000 Phase 2 rows in 3 hours and 52 minutes. These checks establish execution integrity. The later official score measures the aggregate outcome, but it still provides no row-level errors.
 
 **Handoff:** Orny will cover the measured runtime and Phase 2 source shift.
 
-## Slide 13: Phase 2 completed in 3 h 52 min with 95.9% judged
+## Slide 13: Phase 2 ranked 7/32 with an official score of 0.90144
 
 **Presenter:** Noore Tamanna Orny
 **Target:** 65 seconds
 
-The organizer-run Phase 2 notebook processed exactly 5,000 rows on two Tesla T4 GPUs. The router finished in 73.18 seconds but resolved only 207 rows, or 4.14 percent. The remaining 4,793 rows went to Qwen. The model was ready 171.25 seconds after the notebook started, and the judge stage took 13,747.50 seconds. End-to-end runtime was 13,921.91 seconds, which is 3 hours, 52 minutes, and 1.91 seconds. The output validation cell completed successfully with 5,000 ordered IDs and binary labels. This used 42.97 percent of the nine-hour budget. It is measured runtime evidence, not a Phase 2 accuracy score.
+The organizer-run Phase 2 notebook processed exactly 5,000 rows on two Tesla T4 GPUs. The router finished in 73.18 seconds but resolved only 207 rows, or 4.14 percent. The remaining 4,793 rows went to Qwen. The model was ready 171.25 seconds after the notebook started, and the judge stage took 13,747.50 seconds. End-to-end runtime was 13,921.91 seconds, which is 3 hours, 52 minutes, and 1.91 seconds. The output validation cell completed successfully with 5,000 ordered IDs and binary labels. This used 42.97 percent of the nine-hour budget. The official standings later reported a score of 0.90144 and rank 7 of 32 teams. That is an aggregate result; the organizers did not release row-level labels.
 
 ## Slide 14: Phase 2 source shift collapsed deterministic coverage
 
 **Presenter:** Noore Tamanna Orny
 **Target:** 60 seconds
 
-Phase 2 changed the source distribution as expected. The organizer listed Common Crawl, recent newspapers, Wikipedia, Banglapedia, government service pages, Bangladesh law, NCTB textbooks, and literature. Deterministic coverage fell from 93.72 percent in Phase 1 to 4.14 percent in the held-out run. The router did not compensate by forcing approximate evidence. It abstained, and 95.86 percent of rows reached the fixed judge. That raised runtime to 3 hours and 52 minutes, but the notebook still finished with more than five hours of headroom. Accuracy remains an open question until the organizer provides a score.
+Phase 2 changed the source distribution as expected. The organizer listed Common Crawl, recent newspapers, Wikipedia, Banglapedia, government service pages, Bangladesh law, NCTB textbooks, and literature. Deterministic coverage fell from 93.72 percent in Phase 1 to 4.14 percent in the held-out run. The router did not compensate by forcing approximate evidence. It abstained, and 95.86 percent of rows reached the fixed judge. That raised runtime to 3 hours and 52 minutes, but the notebook still finished with more than five hours of headroom. The official result was 0.90144 at rank 7 of 32. Because only aggregate standings were released, the remaining errors cannot yet be separated by source or routing branch.
 
 ## Slide 15: What the experiments support—and what remains open
 
 **Presenter:** Noore Tamanna Orny
 **Target:** 45 seconds
 
-We will close by separating supported findings from open questions. The experiments support three design choices: task families benefit from separate policies, predicate alignment reduces relation swaps, and explicit abstention keeps the pipeline safe when deterministic coverage falls. The main limitations are equally important. We had only 299 released labels, aggregate competition scores provide no row-level errors, and the Phase 2 accuracy result is still unknown. When those labels or analyses become available, the next work is to inspect the judged tail, recalibrate uncertain cases, and expand licensed evidence for civic and news domains. What we can already verify is reproducibility and runtime compliance. We are ready for your questions.
+We will close by separating supported findings from open questions. The experiments support three design choices: task families benefit from separate policies, predicate alignment reduces relation swaps, and explicit abstention keeps the pipeline safe when deterministic coverage falls. The official Phase 2 score was 0.90144, placing Huntrix seventh among 32 teams, and the full run completed in 3 hours and 52 minutes. The limitations are equally important: we had only 299 released labels, the Phase 2 result is aggregate, and no row-level Phase 2 errors were released. If those labels become available, the next work is to inspect the judged tail, recalibrate uncertain cases, and expand licensed evidence for civic and news domains. We are ready for your questions.
 
 ## Likely questions
 

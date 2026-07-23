@@ -57,7 +57,7 @@ A Deterministic Selective Cascade}
 \maketitle
 
 \begin{abstract}
-We study selective inference for Bengali hallucination detection. Task-specific solvers, context grounding, and relation-typed evidence act first; a quantized open-weight model judges abstentions. Phase 1 public and private macro-F1 were 0.967 and 0.982. On 299 released labels, macro-F1 is 0.9933, with 225 deterministic rows classified without error. Three T4$\times$2 runs reproduced the scored 2,516-row output. In the organizer-executed 5,000-row Phase 2 run, 4,793 rows reached the judge and inference took 3~hours 52~minutes \citep{phase2run}. The results expose the trade-off between strict evidence admission, abstention, and runtime under source shift.
+We study selective inference for Bengali hallucination detection. Task-specific solvers, context grounding, and relation-typed evidence act first; a quantized open-weight model judges abstentions. Phase 1 public and private macro-F1 were 0.967 and 0.982. On 299 released labels, macro-F1 is 0.9933, with 225 deterministic rows classified without error. Three T4$\times$2 runs reproduced the scored 2,516-row output. In the organizer-executed 5,000-row Phase 2 run, 4,793 rows reached the judge and inference took 3~hours 52~minutes \citep{phase2run}. The official Phase 2 score was 0.90144, ranking seventh among 32 teams \citep{phase2results}. These results expose the trade-off between strict evidence admission, abstention, generalization, and runtime under source shift.
 \end{abstract}
 
 \section{Introduction}
@@ -277,10 +277,10 @@ The decision log converted these failures into policy: retrieval became proposal
 
 \subsection{Results}
 
-Table~\ref{tab:results} separates released-label validation from aggregate Phase 1 evaluation. The cascade makes two errors on 299 labels; both concern inconsistent controls that we did not patch row by row. The deterministic subset covers 225 rows without error. Public and private macro-F1 were 0.967 and 0.982. These aggregate scores neither identify row-level errors nor isolate the effect of each v91 rule.
+Table~\ref{tab:results} separates released-label validation from aggregate leaderboard evaluation. The cascade makes two errors on 299 labels; both concern inconsistent controls that we did not patch row by row. The deterministic subset covers 225 rows without error. Phase 1 public and private macro-F1 were 0.967 and 0.982. The official Phase 2 score was 0.90144, placing Huntrix seventh among 32 teams \citep{phase2results}. These aggregate scores neither identify row-level errors nor isolate the effect of each v91 rule.
 
 \begin{table}[t]
-\caption{Validation and Phase 1 results.}
+\caption{Validation and official leaderboard results.}
 \label{tab:results}
 \centering
 \small
@@ -292,6 +292,7 @@ Released set (299) & 0.993264 & accuracy 0.993311 \\
 Deterministic (225) & 1.000000 & label-0 F1 1.000000 \\
 Phase 1 public & 0.967 & aggregate held-out split \\
 Phase 1 private & \textbf{0.982} & aggregate final split \\
+Phase 2 private & 0.90144 & rank 7 of 32 teams \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -338,7 +339,7 @@ The evidence inventory combines public Bengali resources rather than treating an
 
 \subsection{Held-Out Domain Shift}
 
-The organizer preview names Common Crawl, Bengali Wikipedia, Banglapedia, government service pages, recent newspapers, legislation, NCTB textbooks, and Bengali literature \citep{phase2}. The completed 5,000-row held-out run confirmed the expected shift: deterministic coverage fell from 93.72\% in Phase 1 to 4.14\% in Phase 2, and 4,793 rows reached the judge \citep{phase2run}. Table~\ref{tab:shift} states the fallback policy.
+The organizer preview names Common Crawl, Bengali Wikipedia, Banglapedia, government service pages, recent newspapers, legislation, NCTB textbooks, and Bengali literature \citep{phase2}. The completed 5,000-row held-out run confirmed the expected shift: deterministic coverage fell from 93.72\% in Phase 1 to 4.14\% in Phase 2, and 4,793 rows reached the judge \citep{phase2run}. Despite this large transfer to the general judge, the official score was 0.90144 and rank was 7/32 \citep{phase2results}. Table~\ref{tab:shift} states the fallback policy.
 
 \begin{table}[t]
 \caption{Routing policy for announced Phase 2 sources.}
@@ -365,11 +366,11 @@ No fine-tuned checkpoint is required. The package pins the public Qwen quantizat
 
 \section{Conclusion}
 
-The experiments indicate that performance depended more on matching the decision method to the task than on enlarging the model. Exact provenance and typed solvers handled cases with clear relations; the fixed judge handled the uncertain tail. The resulting pipeline reproduced its Phase 1 output and completed the 5,000-row Phase 2 run within the runtime limit. Its traces also expose which rule fired, which relation was checked, and where the system abstained.
+Matching the decision method to the task mattered more than enlarging the model. Provenance and typed solvers handled clear relations; the fixed judge handled uncertainty. The pipeline reproduced Phase 1, completed Phase 2 in 3:52, scored 0.90144 at rank 7/32, and retained a trace for every decision.
 
 \section*{Limitations}
 
-The private score does not guarantee equal accuracy on the broader Phase 2 source mix. Exact lineage cannot replace general reasoning on unfamiliar civic, legal, textbook, and news content, and the 299 released labels are too small for reliable per-domain estimates. The completed notebook proves runtime compliance but contains no Phase 2 ground truth or accuracy score. Evidence can age, conflict, or carry licensing constraints; high-stakes civic use still requires human escalation.
+The Phase 2 score is aggregate; no row labels or per-domain breakdown were released. The 299 released labels are too small for reliable domain estimates, and exact lineage cannot replace reasoning on unfamiliar civic, legal, textbook, and news content. Evidence can age, conflict, or carry licensing constraints; high-stakes civic use still requires human escalation.
 
 % The organizer's four-page limit excludes references. This explicit page break
 % guarantees that the body occupies pages 1--4 and references begin afterward.
